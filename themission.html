@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>The Mission</title>
+
+  <style>
+
+    body {
+
+      background-color: #121212;
+      color: #b5ffb2;
+      font-family: monospace;
+      padding: 30px;
+
+    }
+
+    h1 {
+
+      text-align: center;
+      color: #00ff00;
+
+    }
+
+    .container {
+
+      max-width: 800px;
+      margin: auto;
+      background: #1c1c1c;
+      padding: 30px;
+      border: 3px dashed #00ff00;
+
+    }
+
+    .form-group {
+
+      margin-bottom: 20px;
+
+    }
+
+    label, textarea {
+
+      display: block;
+      width: 100%;
+
+    }
+
+    textarea {
+
+      height: 150px;
+      padding: 10px;
+      background: #000;
+      color: #fff;
+
+    }
+
+    input[type="password"], button {
+
+      padding: 10px;
+      width: 100%;
+      margin-top: 10px;
+
+    }
+
+    #intel-form {
+
+      display: none;
+
+    }
+
+    .error {
+
+      color: red;
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <div class="container">
+    <a href="index.html"><h1>The Mission</h1></a>
+    <h2 style="text-align: center;">Report to HQ - Tunnel</h2>
+    <p>Enter secure PIN to submit new intelligence data.</p>
+    <input type="password" id="intelPin" placeholder="Enter PIN" />
+    <button onclick="unlockIntel()">Unlock Intel Submission</button>
+    <p id="intelError" class="error"></p>
+
+    <form id="intel-form" action="YOUR_FORMSPREE_ENDPOINT" method="POST">
+      <div class="form-group">
+        <label for="intel">Intel Report:</label>
+        <textarea name="intel" required></textarea>
+      </div>
+      <button type="submit">Transmit to HQ</button>
+    </form>
+  </div>
+
+  <script>
+
+    const INTEL_PIN = "777";
+
+    function unlockIntel() {
+      const pin = document.getElementById("intelPin").value;
+      if (pin === INTEL_PIN) {
+        document.getElementById("intel-form").style.display = "block";
+        document.getElementById("intelError").innerText = "";
+      } else {
+        document.getElementById("intelError").innerText = "Incorrect PIN.";
+      }
+    }
+
+  </script>
+
+</body>
+
+</html>
+
+
+
+
+
+
+
