@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>CryptX</title>
+
+  <style>
+
+    body {
+
+      font-family: 'Courier New', Courier, monospace;
+      background-color: #0d0d0d;
+      color: #d4d4d4;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+
+    }
+
+    #chat-container {
+
+      width: 60%;
+      max-width: 800px;
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+
+    }
+
+    h1 {
+
+      text-align: center;
+      color: #00ff00;
+      margin-bottom: 20px;
+
+    }
+
+    #messages {
+
+      max-height: 400px;
+      overflow-y: auto;
+      margin-bottom: 20px;
+      padding: 10px;
+      background-color: #222;
+      border-radius: 5px;
+
+    }
+
+    .message {
+
+      background-color: #333;
+      padding: 10px;
+      margin-bottom: 5px;
+      border-radius: 5px;
+      color: #fff;
+
+    }
+
+    #input-container {
+
+      display: flex;
+      justify-content: space-between;
+
+    }
+
+    input[type="text"] {
+
+      width: 80%;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #333;
+      background-color: #444;
+      color: #fff;
+
+    }
+
+    button {
+
+      width: 15%;
+      padding: 10px;
+      background-color: #2bff00;
+      border: none;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+
+    }
+
+    button:hover {
+
+      background-color: #00f7ff;
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <div id="chat-container">
+
+    <h1>CryptX</h1>
+    <div id="messages"></div>
+    <div id="input-container">
+      <input type="text" id="messageInput" placeholder="Type your message..." />
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-firestore.js"></script>
+
+  <script>
+    // Firebase Configuration
+    const firebaseConfig = {
+
+      apiKey: "YOUR_FIREBASE_API_KEY",
+      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_PROJECT_ID.appspot.com",
+      messagingSenderId: "YOUR_SENDER_ID",
+      appId: "YOUR_APP_ID",
+      measurementId: "YOUR_MEASUREMENT_ID"
+
+    };
+
+    // Initialize Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    // Authentication - check if user is logged in
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        document.getElementById('chat-container').style.display = 'block';
+      } else {
+        // If not logged in, prompt for login
+        window.location.href = 'login.html';
+      }
+    });
+
+    // Send a message to Firestore
+    function sendMessage() {
+      const messageInput = document.getElementById('messageInput');
+      const message = messageInput.value;
+
+      if (message.trim() !== '') {
+        const user = auth.currentUser;
+
+        // Encrypt message (simple for now)
+        const encryptedMessage = btoa(message); // Using base64 as a simple encryption
+
+        db.collection('messages').add({
+          user: user.email,
+          message: encryptedMessage,
+          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        }).then(() => {
+          messageInput.value = ''; // Clear input field
+        });
+      }
+    }
+
+    // Load messages from Firestore
+    function loadMessages() {
+      db.collection('messages').orderBy('timestamp', 'asc').onSnapshot(snapshot => {
+        const messagesContainer = document.getElementById('messages');
+        messagesContainer.innerHTML = ''; // Clear previous messages
+
+        snapshot.forEach(doc => {
+          const data = doc.data();
+          const message = atob(data.message); // Decrypt message (base64)
+
+          const messageElement = document.createElement('div');
+          messageElement.classList.add('message');
+          messageElement.textContent = `${data.user}: ${message}`;
+          messagesContainer.appendChild(messageElement);
+        });
+
+        // Scroll to the latest message
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+      });
+    }
+
+    // Initialize chat on load
+    loadMessages();
+
+  </script>
+
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

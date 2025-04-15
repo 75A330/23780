@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>AirCav (Military Organisation)</title>
+
+  <link rel="icon" href="favicon.ico" />
+
+  <style>
+
+    body {
+
+      margin: 0;
+      font-family: 'Courier New', monospace;
+      background: linear-gradient(135deg, #2f2f2f 25%, #505050 25%, #505050 50%, #2f2f2f 50%);
+      background-size: 60px 60px;
+      color: #d4d4d4;
+      animation: camoSlide 20s linear infinite;
+
+    }
+
+    @keyframes camoSlide {
+
+      0% { background-position: 0 0; }
+      100% { background-position: 600px 600px; }
+
+    }
+
+    h1 {
+
+      font-size: 50px;
+
+    }
+
+    h2 {
+
+      font-size: 30px;
+
+    }
+
+    h1, h2 {
+
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: #d2e000;
+
+    }
+
+    .container {
+
+      max-width: 1100px;
+      margin: auto;
+      padding: 20px;
+
+    }
+
+    .section {
+
+      margin: 30px 0;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.6);
+      border-left: 5px solid #2bff00;
+      transition: 0.4s;
+
+    }
+
+    .section:hover {
+
+      border-left: 5px solid #f00;
+      background: rgba(0, 0, 0, 0.8);
+
+    }
+
+    .hidden {
+
+      display: none;
+
+    }
+
+    button {
+
+      padding: 10px 20px;
+      background-color: #2bff00;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+
+    }
+
+    input[type="password"] {
+
+      padding: 10px;
+      border: none;
+      width: 200px;
+      font-size: 16px;
+
+    }
+
+    @media (max-width: 768px) {
+
+      .section {
+
+        padding: 10px;
+
+      }
+
+      input[type="password"] {
+
+        width: 100%;
+
+      }
+
+    }
+
+    .secret-link {
+
+      display: block;
+      margin-top: 10px;
+      color: #d4d4d4;
+      text-decoration: none;
+
+    }
+
+    .secret-link:hover {
+
+      color: #2bff00;
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+<audio autoplay loop hidden>
+  <source src="aircav.mp3" type="audio/mpeg">
+</audio>
+
+<div id="pin-gate" style="text-align:center; padding-top:100px;">
+  <h1>AirCav (Military Organisation)</h1>
+  <h2>Welcome Soldier - Olama Khayyim.</h2>
+  <p>to HQ:</p>
+  <input type="password" id="adminPin" placeholder="Enter" />
+  <br><br>
+  <button onclick="validatePin()">Access</button>
+  <p id="error-msg" style="color:red;"></p>
+</div>
+
+<!-- Main Content -->
+<div id="main-site" class="hidden">
+  <div class="container">
+    <h1>AirCav (Military Organisation) HQ</h1>
+
+    <div class="section">
+      <a href="themission.html"><h2>The Mission</h2></a>
+      <ul>
+        <li>Destroy Evil</li>
+        <li>Move to bangkok ASAP soldier. that's your first mission</li>
+        <a href="submissions.html"><li>- submissions - charlie's point</li></a>
+      </ul>
+    </div>
+
+    <div class="section">
+      <a href="batallions.html"><h2>Batallions</h2></a>
+      <ul>
+        <li>infantry 1st division</li>
+        <li>infantry 2nd division</li>
+        <li>infantry 3rd division</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <a href="companies.html"><h2>Companies</h2></a>
+      <ul>
+        <li>Rosiya</li>
+        <li>London</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <a href="platoons.html"><h2>Platoons</h2></a>
+      <ul>
+        <li>Platoon Bravo</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <a href="squads.html"><h2>Squads</h2></a>
+      <ul>
+        <li>Rosiya</li>
+        <li>London</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <a href="aircavelite.html"><h2>AirCav Elite (take flight)</h2></a>
+      <ul>
+        <li>Rosiya</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <a href="cryptx.html"><h2>CryptX</h2></a>
+      <ul>
+        <li>CryptX</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>Tunnel Rats</h2>
+      <p>🔒</p>
+      <input type="password" id="secretPin" placeholder="Enter" />
+      <button onclick="validateSecret()">Access</button>
+      <p id="secret-error" style="color:red;"></p>
+
+      <div id="secret-links" class="hidden">
+        <a href="secret-tunnel.html" class="secret-link">Tunnel Route Alpha</a>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+
+  const ADMIN_PIN = "1234";
+  const SECRET_PIN = "777";
+
+  function validatePin() {
+
+    const pinInput = document.getElementById("adminPin").value;
+    const errorMsg = document.getElementById("error-msg");
+    if (pinInput === ADMIN_PIN) {
+      document.getElementById("pin-gate").style.display = "none";
+      document.getElementById("main-site").classList.remove("hidden");
+    } else {
+      errorMsg.innerText = "Invalid PIN. Access Denied.";
+    }
+
+  }
+
+  function validateSecret() {
+
+    const pin = document.getElementById("secretPin").value;
+    const secretError = document.getElementById("secret-error");
+    const secretLinks = document.getElementById("secret-links");
+    if (pin === SECRET_PIN) {
+      secretLinks.classList.remove("hidden");
+      secretError.innerText = "";
+    } else {
+      secretError.innerText = "Incorrect PIN for tunnels.";
+    }
+
+  }
+
+</script>
+
+</body>
+
+</html>
+
+<!-- @aircavcompany / the disillusionment is aerospace. -->
+
+
+
+
+
+
+
+
+
+
+
+
