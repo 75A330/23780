@@ -53,6 +53,19 @@
 
     }
 
+    .headings {
+
+      text-decoration: none;
+
+    }
+
+    .list {
+
+      text-decoration: none;
+      color: white;
+
+    }
+
     .container {
 
       max-width: 1100px;
@@ -147,7 +160,7 @@
 <div id="pin-gate" style="text-align:center; padding-top:100px;">
   <h1>AirCav (Military Organisation)</h1>
   <h2>Welcome Soldier - Olama Khayyim.</h2>
-  <p>to HQ:</p>
+  <p>Report to HQ:</p>
   <input type="password" id="adminPin" placeholder="Enter" />
   <br><br>
   <button onclick="validatePin()">Access</button>
@@ -160,55 +173,23 @@
     <h1>AirCav (Military Organisation) HQ</h1>
 
     <div class="section">
-      <a href="themission.html"><h2>The Mission</h2></a>
+      <a href="themission.html" class="headings"><h2>The Mission</h2></a>
       <ul>
-        <li>Destroy Evil</li>
-        <li>Move to bangkok ASAP soldier. that's your first mission</li>
-        <a href="submissions.html"><li>- submissions - charlie's point</li></a>
+        <a href="destroyevil.html" class="list"><li>Destroy Evil.</li></a>
+        <a href="bangkok.html" class="list"><li>Move to bangkok ASAP soldier. that's your first mission.</li></a>
+        <a href="cp.html" class="list"><li>* sub-missions / charlie's point.</li></a>
       </ul>
     </div>
 
     <div class="section">
-      <a href="batallions.html"><h2>Batallions</h2></a>
+      <a href="aircavelite.html" class="headings"><h2>AirCav Elite (take flight)</h2></a>
       <ul>
-        <li>infantry 1st division</li>
-        <li>infantry 2nd division</li>
-        <li>infantry 3rd division</li>
+        <li>AirCav (the company)</li>
       </ul>
     </div>
 
     <div class="section">
-      <a href="companies.html"><h2>Companies</h2></a>
-      <ul>
-        <li>Rosiya</li>
-        <li>London</li>
-      </ul>
-    </div>
-
-    <div class="section">
-      <a href="platoons.html"><h2>Platoons</h2></a>
-      <ul>
-        <li>Platoon Bravo</li>
-      </ul>
-    </div>
-
-    <div class="section">
-      <a href="squads.html"><h2>Squads</h2></a>
-      <ul>
-        <li>Rosiya</li>
-        <li>London</li>
-      </ul>
-    </div>
-
-    <div class="section">
-      <a href="aircavelite.html"><h2>AirCav Elite (take flight)</h2></a>
-      <ul>
-        <li>Rosiya</li>
-      </ul>
-    </div>
-
-    <div class="section">
-      <a href="cryptx.html"><h2>CryptX</h2></a>
+      <a href="cryptx.html" class="headings"><h2>CryptX</h2></a>
       <ul>
         <li>CryptX</li>
       </ul>
@@ -222,7 +203,7 @@
       <p id="secret-error" style="color:red;"></p>
 
       <div id="secret-links" class="hidden">
-        <a href="secret-tunnel.html" class="secret-link">Tunnel Route Alpha</a>
+        <a href="tunnelrats.html" class="secret-link">Tunnel Route Alpha</a>
       </div>
     </div>
 

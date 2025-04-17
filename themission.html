@@ -28,6 +28,12 @@
 
     }
 
+    .themission {
+
+      text-decoration: none;
+
+    }
+
     .container {
 
       max-width: 800px;
@@ -56,7 +62,7 @@
       height: 150px;
       padding: 10px;
       background: #000;
-      color: #fff;
+      color: darkgreen;
 
     }
 
@@ -87,16 +93,16 @@
 <body>
 
   <div class="container">
-    <a href="index.html"><h1>The Mission</h1></a>
-    <h2 style="text-align: center;">Report to HQ - Tunnel</h2>
-    <p>Enter secure PIN to submit new intelligence data.</p>
+    <a href="index.html" class="themission"><h1>The Mission</h1></a>
+    <h2 style="text-align: center;">Report to HQ</h2>
+    <p>What's your breach?</p>
     <input type="password" id="intelPin" placeholder="Enter PIN" />
-    <button onclick="unlockIntel()">Unlock Intel Submission</button>
+    <button onclick="unlockIntel()">Unlock</button>
     <p id="intelError" class="error"></p>
 
     <form id="intel-form" action="YOUR_FORMSPREE_ENDPOINT" method="POST">
       <div class="form-group">
-        <label for="intel">Intel Report:</label>
+        <label for="intel">Breach Report:</label>
         <textarea name="intel" required></textarea>
       </div>
       <button type="submit">Transmit to HQ</button>
