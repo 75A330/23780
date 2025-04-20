@@ -1,120 +1,162 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
-
   <meta charset="UTF-8" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AirCav Elite (Take Flight)</title>
-
+  <link rel="icon" href="images/morpheus.jpg"/>
   <style>
-
+    /* General Body Styles */
     body {
-
       background-color: #1c1c1c;
       color: #d4d4d4;
       font-family: 'Courier New', Courier, monospace;
       text-align: center;
       margin: 0;
-
+      background-image: url('path/to/your/fighter-jet-background.jpg'); /* Fighter jet background image */
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+      overflow: hidden;
+      animation: backgroundAnimation 15s ease-in-out infinite; /* Animation for background */
     }
 
-    .container {
+    /* Animation for Background */
+    @keyframes backgroundAnimation {
+      0% {
+        background-position: center;
+      }
+      50% {
+        background-position: top right;
+      }
+      100% {
+        background-position: center;
+      }
+    }
 
+    /* Container for the content */
+    .container {
       max-width: 1200px;
       margin: auto;
       padding: 50px;
-
+      z-index: 10;
+      position: relative;
     }
 
+    /* SVG elements (if any) */
     svg {
-
       width: 100%;
       height: auto;
-
     }
 
+    /* Hover Effects for Region */
     .region {
-
       fill: #2bff00;
       transition: 0.4s ease;
       cursor: pointer;
-
     }
 
     .region:hover {
-
       fill: #ff0000;
-
     }
 
     .region:active {
-
       fill: #00f7ff;
-
     }
 
+    /* Title Styles */
     h1 {
-
       color: #d2e000;
-
+      font-size: 48px;
+      text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.7);
+      animation: titleAnimation 2s ease-in-out;
     }
 
-    .details {
+    /* Title Animation */
+    @keyframes titleAnimation {
+      0% {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+      50% {
+        transform: scale(1.1);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
 
+    /* Subtitle (h3) Styles */
+    h3 {
+      color: #ff8000;
+      font-size: 36px;
+      animation: subtitleAnimation 2s ease-in-out;
+    }
+
+    /* Subtitle Animation */
+    @keyframes subtitleAnimation {
+      0% {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+      50% {
+        transform: translateY(20px);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    /* Details Section */
+    .details {
       background-color: rgba(0, 0, 0, 0.7);
       padding: 20px;
       margin-top: 20px;
-
+      border-radius: 8px;
     }
 
     .details h2 {
-
       color: #00f7ff;
-
     }
 
     .details p {
-
       font-size: 16px;
-
     }
 
+    /* Audio Background Music */
+    audio {
+      display: none;
+    }
   </style>
-
 </head>
 
 <body>
 
+  <!-- Background Music -->
+  <audio autoplay loop>
+    <source src="audio/ac.mp3" type="audio/mp3">
+    Your browser does not support the audio element.
+  </audio>
+
   <div class="container">
-    <a href="index.html" style="text-decoration: none;"><h1>AirCav Elite (Take Flight)</h1></a>
+    <a href="index.html" style="text-decoration: none;">
+      <h1>AirCav Elite (Take Flight)</h1>
+    </a>
 
     <h3>The Olashi Z-21</h3>
+
+    <!-- Details Section (if necessary) -->
+    <div class="details">
+      <h2>Aircraft Details</h2>
+      <p>Experience the power and agility of the Olashi Z-21 fighter jet. A true marvel of modern aviation, equipped with advanced stealth technology, precision weapons, and unparalleled maneuverability. Take flight and command the skies!</p>
+    </div>
   </div>
 
 </body>
 
 </html>
-
-<!-- scope out The Olashi Z-21 fully ; add background music infinitely called audio/ac.mp3 ; make the background a fighter jet theme ; animate everything in this page -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
