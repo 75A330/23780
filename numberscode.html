@@ -1,82 +1,119 @@
-use this styling to write me a page called numbers code. to randomly generate any number on the click of a button in the 1 million vicinity but not limited to being either base 1, 2, 3, 4, 5, 6, 7, 8, 9, or 10 .... this runs infinite ... 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Numbers Code</title>
+  <link rel="icon" href="images/morpheus.jpg"/>
 
---
-
-<style>
-
+  <style>
     body {
-
       background-color: #1c1c1c;
       color: #d4d4d4;
       font-family: 'Courier New', Courier, monospace;
       text-align: center;
       margin: 0;
-
     }
 
     .container {
-
       max-width: 1200px;
       margin: auto;
       padding: 50px;
-
-    }
-
-    svg {
-
-      width: 100%;
-      height: auto;
-
-    }
-
-    .region {
-
-      fill: #2bff00;
-      transition: 0.4s ease;
-      cursor: pointer;
-
-    }
-
-    .region:hover {
-
-      fill: #ff0000;
-
-    }
-
-    .region:active {
-
-      fill: #00f7ff;
-
     }
 
     h1 {
-
       color: #d2e000;
-
+      margin-bottom: 40px;
+      animation: glowTitle 2s infinite alternate;
     }
 
-    .details {
-
+    .number-display {
       background-color: rgba(0, 0, 0, 0.7);
-      padding: 20px;
-      margin-top: 20px;
-
+      padding: 30px;
+      margin-top: 30px;
+      border-radius: 10px;
+      border: 2px solid #2bff00;
+      animation: fadeIn 0.5s ease;
     }
 
-    .details h2 {
-
+    .number-display h2 {
       color: #00f7ff;
-
+      margin-bottom: 10px;
     }
 
-    .details p {
-
-      font-size: 16px;
-
+    .number-display p {
+      font-size: 24px;
+      word-break: break-word;
+      font-weight: bold;
     }
 
+    button {
+      padding: 15px 30px;
+      background-color: #2bff00;
+      border: none;
+      border-radius: 5px;
+      color: #000;
+      font-weight: bold;
+      font-size: 18px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #00f7ff;
+      transform: scale(1.05);
+    }
+
+    button:active {
+      background-color: #ff0000;
+    }
+
+    @keyframes glowTitle {
+      from { text-shadow: 0 0 10px #2bff00; }
+      to { text-shadow: 0 0 20px #00f7ff; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
   </style>
+</head>
 
-  --
+<body>
+  <div class="container">
+    <a href="index.html" style="text-decoration: none;">
+      <h1>Numbers Code</h1>
+    </a>
+    <button onclick="generateCode()">Generate Number Code</button>
 
-  
+    <div id="output" class="number-display" style="display: none;">
+      <h2>Encrypted Value:</h2>
+      <p id="numberValue">...</p>
+    </div>
+  </div>
+
+  <script>
+    function generateCode() {
+      const outputDiv = document.getElementById("output");
+      const numberValue = document.getElementById("numberValue");
+
+      const bases = [2, 3, 4, 5, 6, 7, 8, 9, 10]; // skipping base 1 (unrepresentable in code)
+      const base = bases[Math.floor(Math.random() * bases.length)];
+      const number = Math.floor(Math.random() * 1_000_000) + 1;
+
+      let converted;
+
+      // Simulate base 1 as "tally marks" (just for fun)
+      if (base === 1) {
+        converted = "|".repeat(number > 100 ? 100 : number) + (number > 100 ? "..." : ""); // limit for display
+      } else {
+        converted = number.toString(base);
+      }
+
+      numberValue.innerText = `Base ${base}: ${converted}`;
+      outputDiv.style.display = "block";
+    }
+  </script>
+</body>
+</html>

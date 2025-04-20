@@ -1,88 +1,171 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
-
   <meta charset="UTF-8" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-  <title>Submissions</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Operation Submissions</title>
+  <link rel="icon" href="images/morpheus.jpg"/>
 
   <style>
-
+    /* Global Style */
     body {
-
       background-color: #1c1c1c;
       color: #d4d4d4;
       font-family: 'Courier New', Courier, monospace;
-      text-align: center;
       margin: 0;
-
+      text-align: center;
     }
 
     .container {
-
       max-width: 1200px;
       margin: auto;
       padding: 50px;
-
     }
 
-    svg {
+    h1,
+    h2,
+    h3 {
+      color: #d2e000;
+    }
 
+    h3,
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    /* SVG Style */
+    svg {
       width: 100%;
       height: auto;
-
     }
 
+    /* Region Interaction */
     .region {
-
       fill: #2bff00;
       transition: 0.4s ease;
       cursor: pointer;
-
     }
 
     .region:hover {
-
       fill: #ff0000;
-
     }
 
     .region:active {
-
       fill: #00f7ff;
-
     }
 
-    h1 {
-
-      color: #d2e000;
-
+    /* Buttons */
+    button {
+      padding: 10px 20px;
+      background-color: #2bff00;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 20px;
+      transition: background-color 0.3s ease;
     }
 
-    .details {
+    button:hover {
+      background-color: #00f7ff;
+    }
 
+    /* Operation Sections */
+    .operation-section {
       background-color: rgba(0, 0, 0, 0.7);
       padding: 20px;
       margin-top: 20px;
-
+      border-radius: 10px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
     }
 
-    .details h2 {
-
+    .operation-section h2 {
       color: #00f7ff;
-
+      font-size: 24px;
     }
 
-    .details p {
-
+    .operation-section .details p {
       font-size: 16px;
-
     }
 
+    /* Textarea for input */
+    textarea {
+      width: 80%;
+      height: 150px;
+      background-color: #333;
+      color: white;
+      border-radius: 5px;
+      padding: 10px;
+      font-size: 14px;
+      border: 1px solid #444;
+      resize: vertical;
+      margin-bottom: 20px;
+    }
+
+    /* Popup Style */
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(0, 0, 0, 0.9);
+      color: white;
+      padding: 30px;
+      border-radius: 10px;
+      display: none;
+      width: 80%;
+      max-width: 500px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+    }
+
+    .popup h3 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .popup p {
+      font-size: 18px;
+      line-height: 1.5;
+    }
+
+    .popup button {
+      background-color: #ff0000;
+      padding: 10px 20px;
+      border-radius: 5px;
+      border: none;
+      color: white;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    .popup button:hover {
+      background-color: #ff5555;
+    }
+
+    /* Highlight Section */
+    .highlight {
+      background-color: rgba(255, 0, 0, 0.2);
+      padding: 10px;
+      border-radius: 5px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+    
+    .highlight:hover {
+      background-color: rgba(255, 0, 0, 0.5);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .container {
+        padding: 30px;
+      }
+      textarea {
+        width: 90%;
+      }
+    }
   </style>
 
 </head>
@@ -90,55 +173,139 @@
 <body>
 
   <div class="container">
-    
-    <a href="index.html" style="text-decoration: none;"><h1>Charlie's Point</h1></a>
+    <a href="index.html" style="text-decoration: none;">
+      <h1>Charlie's Point</h1>
+    </a>
 
     <h3>Operation Tuks</h3>
+    <div class="operation-section">
+      <h2>Objective: Secure high-value targets</h2>
+      <textarea placeholder="Submit intel, strategy, or plans here..."></textarea>
+      <button onclick="submitIntel('Tuks')">Submit Intel</button>
+    </div>
 
     <h3>Operation Umhlanga: Business Licenses</h3>
+    <div class="operation-section">
+      <h2>Objective: Gain control over business operations</h2>
+      <textarea placeholder="Submit intel, strategy, or plans here..."></textarea>
+      <button onclick="submitIntel('Umhlanga')">Submit Intel</button>
+    </div>
 
     <h3>Operative Masiya</h3>
+    <div class="operation-section">
+      <h2>Objective: Assassinate target</h2>
+      <textarea placeholder="Submit intel, strategy, or plans here..."></textarea>
+      <button onclick="submitIntel('Masiya')">Submit Intel</button>
+    </div>
 
-    <h3>Operative Senzangakhona: We're coming for the transportation system</h3>
+    <h3>Operative Senzangakhona: We’re coming for the transportation system</h3>
+    <div class="operation-section">
+      <h2>Objective: Infiltrate transportation networks</h2>
+      <textarea placeholder="Submit intel, strategy, or plans here..."></textarea>
+      <button onclick="submitIntel('Senzangakhona')">Submit Intel</button>
+    </div>
 
     <h3>Operation Bangkok: Parables & Platters</h3>
+    <div class="operation-section">
+      <h2>Objective: Establish dominance over rival networks</h2>
+      <textarea placeholder="Submit intel, strategy, or plans here..."></textarea>
+      <button onclick="submitIntel('Bangkok')">Submit Intel</button>
+    </div>
 
-    <h2>Operation Zama Mdluli: 069 819 5098 ... I don't think that sms went through.</h2>
+    <h2>Operation Zama Mdluli</h2>
+    <div class="operation-section">
+      <h2>Objective: Secure critical communications</h2>
+      <textarea placeholder="Submit intel, strategy, or plans here..."></textarea>
+      <button onclick="submitIntel('ZamaMdluli')">Submit Intel</button>
+    </div>
 
-    <h2>Operation Zothando (My actual Twin Sister): With her, she must peace. make her submit to you by completely shutting her out. let her come begging. I will not accept her until I see her cry for me. When she cries, I'll accept her.</h2>
+    <h2>Operation Zothando (My actual Twin Sister)</h2>
+    <div class="operation-section">
+      <h2>Objective: Covert psychological manipulation</h2>
+      <textarea placeholder="Submit intel, strategy, or plans here..."></textarea>
+      <button onclick="submitIntel('Zothando')">Submit Intel</button>
+    </div>
 
     <h2>Operation Sarah</h2>
+    <div class="operation-section">
+      <h2>Objective: Counter-terrorism and surveillance</h2>
+      <textarea placeholder="Submit intel, strategy, or plans here..."></textarea>
+      <button onclick="submitIntel('Sarah')">Submit Intel</button>
+    </div>
 
     <h2>Operation Amina</h2>
+    <div class="operation-section">
+      <h2>Objective: Gain political leverage</h2>
+      <textarea placeholder="Submit intel, strategy, or plans here..."></textarea>
+      <button onclick="submitIntel('Amina')">Submit Intel</button>
+    </div>
 
     <h2>Operation Bulelwa</h2>
+    <div class="operation-section">
+      <h2>Objective: Espionage and data extraction</h2>
+      <textarea placeholder="Submit intel, strategy, or plans here..."></textarea>
+      <button onclick="submitIntel('Bulelwa')">Submit Intel</button>
+    </div>
 
     <h2>Operation Vietnam</h2>
+    <div class="operation-section">
+      <h2>Objective: Extract classified documents</h2>
+      <textarea placeholder="Submit intel, strategy, or plans here..."></textarea>
+      <button onclick="submitIntel('Vietnam')">Submit Intel</button>
+    </div>
 
     <h2>Operation echibini</h2>
+    <div class="operation-section">
+      <h2>Objective: Eliminate key targets</h2>
+      <textarea placeholder="Submit intel, strategy, or plans here..."></textarea>
+      <button onclick="submitIntel('echibini')">Submit Intel</button>
+    </div>
 
     <h2>s'the</h2>
+    <div class="operation-section">
+      <h2>Objective: Secure secret mission data</h2>
+      <textarea placeholder="Submit intel, strategy, or plans here..."></textarea>
+      <button onclick="submitIntel('the')">Submit Intel</button>
+    </div>
 
     <h2>prison</h2>
+    <div class="operation-section">
+      <h2>Objective: Disrupt enemy command structure</h2>
+      <textarea placeholder="Submit intel, strategy, or plans here..."></textarea>
+      <button onclick="submitIntel('prison')">Submit Intel</button>
+    </div>
+  </div>
 
+  <!-- Formspree Integration -->
+  <form action="https://formspree.io/f/xayqgqjo" method="POST">
+    <input type="hidden" name="_subject" value="New Military Operation Submission" />
+    <input type="text" name="name" placeholder="Your Name" required />
+    <textarea name="message" placeholder="Submit your operation intel and strategies here..." required></textarea>
+    <button type="submit">Submit Operation Intel</button>
+  </form>
+
+  <!-- Popup (Example) -->
+  <div class="popup" id="popup1">
+    <h3>Operation Update</h3>
+    <p>New operation objective received. Please submit your strategies.</p>
+    <button onclick="closePopup('popup1')">Close</button>
+  </div>
+
+  <script>
+    // Function to handle intel submission
+    function submitIntel(operation) {
+      alert('Intel for ' + operation + ' has been submitted!');
+    }
+
+    // Function to handle popup visibility
+    function showPopup(popupId) {
+      document.getElementById(popupId).style.display = 'block';
+    }
+
+    function closePopup(popupId) {
+      document.getElementById(popupId).style.display = 'none';
+    }
+  </script>
 </body>
 
 </html>
-
---
-
-give me back fully updated code - list of operations and their objectives, and text areas for each to submit intel and plan and strategise, etc. divide each. make them options and buttons, but just not pages of their own. everything must run smoothly on this one page. add popups, dropdowns, selections, highlights, animations, key-points... I want this to be the best military program for a soldier to use to execute his operations. add one formspree endpoint in the html for all operations for submissions. add subtility as well. make every beautiful and nice and very intel like. very CIA like. make this code very very very very very very very long. 
-
---
-
-
-
-
-
-
-
-
-
-
-
-

@@ -5,16 +5,12 @@
 <head>
 
   <meta charset="UTF-8" />
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <title>CryptX</title>
+  <link rel="icon" href="images/morpheus.jpg"/>
 
   <style>
-
-    /* Matrix Rain Background */
     body {
-
       font-family: 'Courier New', Courier, monospace;
       background-color: #0d0d0d;
       color: #d4d4d4;
@@ -26,11 +22,9 @@
       flex-direction: column;
       overflow: hidden;
       position: relative;
-
     }
 
     #matrix {
-
       position: absolute;
       top: 0;
       left: 0;
@@ -38,60 +32,48 @@
       height: 100%;
       pointer-events: none;
       z-index: -1;
-
     }
 
     #chat-container {
-
       width: 60%;
       max-width: 800px;
       background-color: rgba(0, 0, 0, 0.7);
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-
     }
 
     h1 {
-
       text-align: center;
       color: #00ff00;
       margin-bottom: 20px;
       text-decoration: none;
-
     }
 
     #messages {
-
       max-height: 400px;
       overflow-y: auto;
       margin-bottom: 20px;
       padding: 10px;
       background-color: #222;
       border-radius: 5px;
-
     }
 
     .message {
-
       background-color: #333;
       padding: 10px;
       margin-bottom: 5px;
       border-radius: 5px;
       color: #fff;
-
     }
 
     #input-container {
-
       display: flex;
       justify-content: space-between;
       gap: 10px;
-
     }
 
     input[type="text"] {
-
       flex: 1;
       padding: 10px;
       font-size: 16px;
@@ -99,11 +81,9 @@
       border: 1px solid #333;
       background-color: #444;
       color: #fff;
-
     }
 
     button {
-
       padding: 10px;
       background-color: #2bff00;
       border: none;
@@ -111,13 +91,24 @@
       font-size: 16px;
       cursor: pointer;
       border-radius: 5px;
-
     }
 
     button:hover {
-
       background-color: #00f7ff;
+    }
 
+    #encryptedPreview {
+      background-color: #222;
+      color: #00f7ff;
+      padding: 10px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      font-family: monospace;
+      word-wrap: break-word;
+    }
+
+    #decrypt-section {
+      margin-top: 20px;
     }
 
   </style>
@@ -130,24 +121,31 @@
 
   <div id="chat-container">
 
-    <a href="index.html" style="text-decoration: none;"><h1>CryptX</h1></a>
+    <a href="index.html" style="text-decoration: none;">
+      <h1>CryptX</h1>
+    </a>
 
     <div id="messages"></div>
 
+    <!-- Encrypted message preview -->
+    <div id="encryptedPreview">Encrypted message will appear here...</div>
+
     <div id="input-container">
       <input type="text" id="messageInput" placeholder="Type your message..." />
+      <button onclick="encryptAndPreviewMessage()">Encrypt & Preview</button>
       <button onclick="sendMessage()">Encrypt & Send</button>
-      <button onclick="decryptMessages()">Decrypt</button>
     </div>
+
+    <!-- Decryption section -->
+    <div id="decrypt-section">
+      <input type="text" id="decryptInput" placeholder="Enter encrypted message to decrypt" />
+      <button onclick="decryptMessage()">Decrypt Message</button>
+      <div id="decryptedOutput"></div>
+    </div>
+
   </div>
 
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-firestore.js"></script>
-
   <script>
-
     // Matrix Rain Animation
     const canvas = document.getElementById('matrix');
     const ctx = canvas.getContext('2d');
@@ -161,7 +159,6 @@
     const drops = Array.from({ length: columns }).fill(1);
 
     function drawMatrix() {
-
       ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       ctx.fillStyle = '#0F0';
@@ -175,27 +172,12 @@
         }
         drops[i]++;
       });
-
     }
 
     setInterval(drawMatrix, 100);
 
-    // Firebase Configuration
-    const firebaseConfig = {
-      apiKey: "YOUR_FIREBASE_API_KEY",
-      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-      projectId: "YOUR_PROJECT_ID",
-      storageBucket: "YOUR_PROJECT_ID.appspot.com",
-      messagingSenderId: "YOUR_SENDER_ID",
-      appId: "YOUR_APP_ID"
-    };
-
-    const app = firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const db = firebase.firestore();
-
-    // AES key (In production, use a proper key management solution!)
-    const secret = "mySuperSecretKey123!";
+    // Encryption & Decryption logic
+    const secret = "mySuperSecretKey123!";  // AES encryption password
 
     async function encryptAES(text, password) {
       const enc = new TextEncoder();
@@ -276,81 +258,40 @@
       }
     }
 
-    // Auth
-    auth.onAuthStateChanged(user => {
-      if (!user) window.location.href = "login.html";
-    });
+    // Function to encrypt and preview the message
+    async function encryptAndPreviewMessage() {
+      const input = document.getElementById("messageInput").value.trim();
+      if (!input) return;
+      const encryptedMessage = await encryptAES(input, secret);
+      document.getElementById("encryptedPreview").textContent = encryptedMessage;
+    }
 
-    // Send encrypted message
+    // Function to send the encrypted message to MongoDB
     async function sendMessage() {
-      const input = document.getElementById("messageInput");
-      const text = input.value.trim();
-      const user = auth.currentUser;
+      const input = document.getElementById("messageInput").value.trim();
+      const encryptedMessage = document.getElementById("encryptedPreview").textContent;
+      
+      if (!input || !encryptedMessage) return;
 
-      if (!text || !user) return;
+      // Send to MongoDB (replace with actual MongoDB API logic)
+      console.log("Message sent:", encryptedMessage);
 
-      const encrypted = await encryptAES(text, secret);
-      db.collection("messages").add({
-        user: user.email,
-        message: encrypted,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp()
-      });
-
-      input.value = "";
+      // Reset the input field
+      document.getElementById("messageInput").value = '';
+      document.getElementById("encryptedPreview").textContent = 'Encrypted message will appear here...';
     }
 
-    // Load and decrypt messages
-    async function decryptMessages() {
-      const snapshot = await db.collection("messages").orderBy("timestamp", "asc").get();
-      const messagesContainer = document.getElementById("messages");
-      messagesContainer.innerHTML = "";
+    // Function to decrypt a message
+    async function decryptMessage() {
+      const encryptedMessage = document.getElementById("decryptInput").value.trim();
+      if (!encryptedMessage) return;
 
-      for (const doc of snapshot.docs) {
-        const { user, message } = doc.data();
-        const decrypted = await decryptAES(message, secret);
-        const div = document.createElement("div");
-        div.className = "message";
-        div.textContent = `${user}: ${decrypted}`;
-        messagesContainer.appendChild(div);
-      }
+      const decryptedMessage = await decryptAES(encryptedMessage, secret);
+      document.getElementById("decryptedOutput").textContent = decryptedMessage;
     }
 
-    // Auto-load encrypted messages (can be removed if only decrypt on button click)
-    db.collection("messages").orderBy("timestamp", "asc").onSnapshot(snapshot => {
-      const messagesContainer = document.getElementById("messages");
-      messagesContainer.innerHTML = "";
-
-      snapshot.forEach(async doc => {
-        const data = doc.data();
-        const div = document.createElement("div");
-        div.className = "message";
-        div.textContent = `${data.user}: [Encrypted Message]`;
-        messagesContainer.appendChild(div);
-      });
-    });
   </script>
 
 </body>
+
 </html>
-
-<!-- I must see the encrypted message first before I could send it... there also needs to be another section to decrypt an encrypted message ; error handling, robust, precise, let's work with mongodb instead -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

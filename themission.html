@@ -1,141 +1,236 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
   <meta charset="UTF-8" />
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
   <title>The Mission</title>
+  <link rel="icon" href="images/morpheus.jpg"/>
 
   <style>
-
     body {
-
       background-color: #121212;
-      color: #b5ffb2;
+      color: #cceacc;
       font-family: monospace;
       padding: 30px;
-
+      animation: fadeInBody 1.5s ease-in;
     }
 
     h1 {
-
       text-align: center;
-      color: #00ff00;
-
+      color: #00ff88;
+      animation: pulse 2s infinite alternate;
     }
 
-    .themission {
-
-      text-decoration: none;
-
+    h2 {
+      text-align: center;
+      color: #91ffc6;
+      animation: fadeInUp 1s ease;
     }
 
     .container {
-
       max-width: 800px;
       margin: auto;
       background: #1c1c1c;
       padding: 30px;
-      border: 3px dashed #00ff00;
-
+      border: 2px dashed #00ff88;
+      border-radius: 10px;
+      animation: zoomIn 1s ease;
     }
 
-    .form-group {
-
-      margin-bottom: 20px;
-
-    }
-
-    label, textarea {
-
-      display: block;
+    input[type="password"],
+    textarea,
+    button {
       width: 100%;
-
-    }
-
-    textarea {
-
-      height: 150px;
-      padding: 10px;
-      background: #000;
-      color: darkgreen;
-
-    }
-
-    input[type="password"], button {
-
-      padding: 10px;
-      width: 100%;
+      padding: 12px;
       margin-top: 10px;
+      background: #1a1a1a;
+      color: #cceacc;
+      border: 1px solid #00ff88;
+      border-radius: 5px;
+      font-size: 15px;
+      transition: all 0.2s ease-in-out;
+    }
 
+    input::placeholder, textarea::placeholder {
+      color: #888;
+    }
+
+    input:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #00ffa2;
+      background-color: #101010;
+    }
+
+    button {
+      background-color: #00ff88;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover:not(:disabled) {
+      background-color: #1effa6;
+      transform: scale(1.03);
+    }
+
+    button:disabled {
+      background-color: #555;
+      cursor: not-allowed;
     }
 
     #intel-form {
-
       display: none;
+      animation: fadeInUp 1s ease;
+    }
 
+    .error,
+    .success,
+    .loading {
+      margin-top: 15px;
+      padding: 10px;
+      border-radius: 4px;
+      font-weight: bold;
     }
 
     .error {
-
-      color: red;
-
+      color: #ff5c5c;
+      background: #2a0000;
     }
 
-  </style>
+    .success {
+      color: #1fff99;
+      background: #003315;
+    }
 
+    .loading {
+      color: #fff9cc;
+      background: #333300;
+    }
+
+    /* Animations */
+    @keyframes fadeInBody {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      from { transform: scale(1); }
+      to { transform: scale(1.05); }
+    }
+
+    @keyframes zoomIn {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+
+      h2 {
+        font-size: 18px;
+      }
+
+      .container {
+        padding: 20px;
+      }
+
+      textarea {
+        height: 120px;
+      }
+    }
+  </style>
 </head>
 
 <body>
-
   <div class="container">
-    <a href="index.html" class="themission"><h1>The Mission</h1></a>
-    <h2 style="text-align: center;">Report to HQ</h2>
+    <a href="index.html" style="text-decoration: none;">
+      <h1>The Mission</h1>
+    </a>
+    <h2>Report to HQ</h2>
     <p>What's your breach?</p>
+
     <input type="password" id="intelPin" placeholder="Enter PIN" />
     <button onclick="unlockIntel()">Unlock</button>
-    <p id="intelError" class="error"></p>
+    <p id="intelError" class="error" style="display: none;"></p>
 
-    <form id="intel-form" action="YOUR_FORMSPREE_ENDPOINT" method="POST">
+    <form id="intel-form">
       <div class="form-group">
         <label for="intel">Breach Report:</label>
-        <textarea name="intel" required></textarea>
+        <textarea name="intel" id="intelTextarea" placeholder="Type your report..." required></textarea>
       </div>
-      <button type="submit">Transmit to HQ</button>
+      <button type="submit" id="submitBtn">Transmit to HQ</button>
+      <div id="formResponse" class="loading" style="display: none;"></div>
     </form>
   </div>
 
   <script>
-
     const INTEL_PIN = "777";
 
     function unlockIntel() {
       const pin = document.getElementById("intelPin").value;
+      const intelForm = document.getElementById("intel-form");
+      const errorText = document.getElementById("intelError");
+
       if (pin === INTEL_PIN) {
-        document.getElementById("intel-form").style.display = "block";
-        document.getElementById("intelError").innerText = "";
+        intelForm.style.display = "block";
+        errorText.style.display = "none";
+        document.getElementById("intelTextarea").focus();
+        intelForm.scrollIntoView({ behavior: 'smooth' });
       } else {
-        document.getElementById("intelError").innerText = "Incorrect PIN.";
+        errorText.innerText = "Incorrect PIN.";
+        errorText.style.display = "block";
       }
     }
 
+    document.getElementById("intel-form").addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const form = e.target;
+      const data = new FormData(form);
+      const formResponse = document.getElementById("formResponse");
+      const submitBtn = document.getElementById("submitBtn");
+
+      // Show loading state
+      formResponse.className = "loading";
+      formResponse.innerText = "Transmitting to HQ...";
+      formResponse.style.display = "block";
+      submitBtn.disabled = true;
+
+      try {
+        const response = await fetch("https://formspree.io/f/mnnpewjr", {
+          method: "POST",
+          body: data,
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+
+        if (response.ok) {
+          formResponse.className = "success";
+          formResponse.innerText = "✅ Mission report successfully transmitted to HQ.";
+          form.reset();
+        } else {
+          throw new Error("Transmission failed.");
+        }
+      } catch (error) {
+        formResponse.className = "error";
+        formResponse.innerText = "❌ Error: Could not reach HQ. Try again later.";
+      } finally {
+        submitBtn.disabled = false;
+      }
+    });
   </script>
-
 </body>
-
 </html>
-
-<!-- link with formspree directly in the html - https://formspree.io/f/mnnpewjr -->
-
-<!-- add animations for everything here -->
-
-
-
-
-
-
-
