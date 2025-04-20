@@ -12,6 +12,7 @@
 
   <style>
 
+    /* Matrix Rain Background */
     body {
 
       font-family: 'Courier New', Courier, monospace;
@@ -23,6 +24,20 @@
       align-items: center;
       height: 100vh;
       flex-direction: column;
+      overflow: hidden;
+      position: relative;
+
+    }
+
+    #matrix {
+
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
 
     }
 
@@ -42,6 +57,7 @@
       text-align: center;
       color: #00ff00;
       margin-bottom: 20px;
+      text-decoration: none;
 
     }
 
@@ -70,12 +86,13 @@
 
       display: flex;
       justify-content: space-between;
+      gap: 10px;
 
     }
 
     input[type="text"] {
 
-      width: 80%;
+      flex: 1;
       padding: 10px;
       font-size: 16px;
       border-radius: 5px;
@@ -87,7 +104,6 @@
 
     button {
 
-      width: 15%;
       padding: 10px;
       background-color: #2bff00;
       border: none;
@@ -110,13 +126,18 @@
 
 <body>
 
+  <canvas id="matrix"></canvas>
+
   <div id="chat-container">
 
-    <h1>CryptX</h1>
+    <a href="index.html" style="text-decoration: none;"><h1>CryptX</h1></a>
+
     <div id="messages"></div>
+
     <div id="input-container">
       <input type="text" id="messageInput" placeholder="Type your message..." />
-      <button onclick="sendMessage()">Send</button>
+      <button onclick="sendMessage()">Encrypt & Send</button>
+      <button onclick="decryptMessages()">Decrypt</button>
     </div>
   </div>
 
@@ -126,96 +147,196 @@
   <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-firestore.js"></script>
 
   <script>
+
+    // Matrix Rain Animation
+    const canvas = document.getElementById('matrix');
+    const ctx = canvas.getContext('2d');
+
+    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
+
+    const binary = '01';
+    const fontSize = 14;
+    const columns = canvas.width / fontSize;
+    const drops = Array.from({ length: columns }).fill(1);
+
+    function drawMatrix() {
+
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#0F0';
+      ctx.font = `${fontSize}px monospace`;
+
+      drops.forEach((y, i) => {
+        const text = binary.charAt(Math.floor(Math.random() * binary.length));
+        ctx.fillText(text, i * fontSize, y * fontSize);
+        if (y * fontSize > canvas.height && Math.random() > 0.99) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      });
+
+    }
+
+    setInterval(drawMatrix, 100);
+
     // Firebase Configuration
     const firebaseConfig = {
-
       apiKey: "YOUR_FIREBASE_API_KEY",
       authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
       projectId: "YOUR_PROJECT_ID",
       storageBucket: "YOUR_PROJECT_ID.appspot.com",
       messagingSenderId: "YOUR_SENDER_ID",
-      appId: "YOUR_APP_ID",
-      measurementId: "YOUR_MEASUREMENT_ID"
-
+      appId: "YOUR_APP_ID"
     };
 
-    // Initialize Firebase
     const app = firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
     const db = firebase.firestore();
 
-    // Authentication - check if user is logged in
-    auth.onAuthStateChanged(user => {
-      if (user) {
-        document.getElementById('chat-container').style.display = 'block';
-      } else {
-        // If not logged in, prompt for login
-        window.location.href = 'login.html';
+    // AES key (In production, use a proper key management solution!)
+    const secret = "mySuperSecretKey123!";
+
+    async function encryptAES(text, password) {
+      const enc = new TextEncoder();
+      const keyMaterial = await window.crypto.subtle.importKey(
+        "raw",
+        enc.encode(password),
+        { name: "PBKDF2" },
+        false,
+        ["deriveKey"]
+      );
+
+      const key = await window.crypto.subtle.deriveKey(
+        {
+          name: "PBKDF2",
+          salt: enc.encode("salt"),
+          iterations: 100000,
+          hash: "SHA-256"
+        },
+        keyMaterial,
+        { name: "AES-GCM", length: 256 },
+        true,
+        ["encrypt", "decrypt"]
+      );
+
+      const iv = crypto.getRandomValues(new Uint8Array(12));
+      const ciphertext = await window.crypto.subtle.encrypt(
+        { name: "AES-GCM", iv },
+        key,
+        enc.encode(text)
+      );
+
+      return btoa(JSON.stringify({
+        iv: Array.from(iv),
+        data: Array.from(new Uint8Array(ciphertext))
+      }));
+    }
+
+    async function decryptAES(cipher, password) {
+      try {
+        const enc = new TextEncoder();
+        const dec = new TextDecoder();
+        const raw = JSON.parse(atob(cipher));
+
+        const iv = new Uint8Array(raw.iv);
+        const data = new Uint8Array(raw.data);
+
+        const keyMaterial = await window.crypto.subtle.importKey(
+          "raw",
+          enc.encode(password),
+          { name: "PBKDF2" },
+          false,
+          ["deriveKey"]
+        );
+
+        const key = await window.crypto.subtle.deriveKey(
+          {
+            name: "PBKDF2",
+            salt: enc.encode("salt"),
+            iterations: 100000,
+            hash: "SHA-256"
+          },
+          keyMaterial,
+          { name: "AES-GCM", length: 256 },
+          true,
+          ["encrypt", "decrypt"]
+        );
+
+        const decrypted = await window.crypto.subtle.decrypt(
+          { name: "AES-GCM", iv },
+          key,
+          data
+        );
+
+        return dec.decode(decrypted);
+      } catch (error) {
+        console.error("Decryption failed:", error);
+        return "[Decryption Error]";
       }
+    }
+
+    // Auth
+    auth.onAuthStateChanged(user => {
+      if (!user) window.location.href = "login.html";
     });
 
-    // Send a message to Firestore
-    function sendMessage() {
-      const messageInput = document.getElementById('messageInput');
-      const message = messageInput.value;
+    // Send encrypted message
+    async function sendMessage() {
+      const input = document.getElementById("messageInput");
+      const text = input.value.trim();
+      const user = auth.currentUser;
 
-      if (message.trim() !== '') {
-        const user = auth.currentUser;
+      if (!text || !user) return;
 
-        // Encrypt message (simple for now)
-        const encryptedMessage = btoa(message); // Using base64 as a simple encryption
+      const encrypted = await encryptAES(text, secret);
+      db.collection("messages").add({
+        user: user.email,
+        message: encrypted,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      });
 
-        db.collection('messages').add({
-          user: user.email,
-          message: encryptedMessage,
-          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-        }).then(() => {
-          messageInput.value = ''; // Clear input field
-        });
+      input.value = "";
+    }
+
+    // Load and decrypt messages
+    async function decryptMessages() {
+      const snapshot = await db.collection("messages").orderBy("timestamp", "asc").get();
+      const messagesContainer = document.getElementById("messages");
+      messagesContainer.innerHTML = "";
+
+      for (const doc of snapshot.docs) {
+        const { user, message } = doc.data();
+        const decrypted = await decryptAES(message, secret);
+        const div = document.createElement("div");
+        div.className = "message";
+        div.textContent = `${user}: ${decrypted}`;
+        messagesContainer.appendChild(div);
       }
     }
 
-    // Load messages from Firestore
-    function loadMessages() {
-      db.collection('messages').orderBy('timestamp', 'asc').onSnapshot(snapshot => {
-        const messagesContainer = document.getElementById('messages');
-        messagesContainer.innerHTML = ''; // Clear previous messages
+    // Auto-load encrypted messages (can be removed if only decrypt on button click)
+    db.collection("messages").orderBy("timestamp", "asc").onSnapshot(snapshot => {
+      const messagesContainer = document.getElementById("messages");
+      messagesContainer.innerHTML = "";
 
-        snapshot.forEach(doc => {
-          const data = doc.data();
-          const message = atob(data.message); // Decrypt message (base64)
-
-          const messageElement = document.createElement('div');
-          messageElement.classList.add('message');
-          messageElement.textContent = `${data.user}: ${message}`;
-          messagesContainer.appendChild(messageElement);
-        });
-
-        // Scroll to the latest message
-        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+      snapshot.forEach(async doc => {
+        const data = doc.data();
+        const div = document.createElement("div");
+        div.className = "message";
+        div.textContent = `${data.user}: [Encrypted Message]`;
+        messagesContainer.appendChild(div);
       });
-    }
-
-    // Initialize chat on load
-    loadMessages();
-
+    });
   </script>
 
 </body>
-
 </html>
 
---
+<!-- I must see the encrypted message first before I could send it... there also needs to be another section to decrypt an encrypted message ; error handling, robust, precise, let's work with mongodb instead -->
 
-give me fully back updated code being very very very very long. add a matrix bbackground of matrix rain of 1's and 0's raining infinitely, spaced out, and very slowly. 
 
-this CryptX algorithm must run live AES encryption on a free database. 
 
-there must encrypt and decrpyt options here - go all out here. 
-
-robust, precise, error handling, functional. 
-
---
 
 
 
