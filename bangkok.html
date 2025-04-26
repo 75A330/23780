@@ -1,122 +1,171 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
+
+  <meta charset="UTF-8"/>
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
   <title>Operation Bangkok</title>
+
   <link rel="icon" href="images/morpheus.jpg"/>
+
   <style>
+
     body {
+
       background-color: #1c1c1c;
       color: #d4d4d4;
       font-family: 'Courier New', Courier, monospace;
       text-align: center;
       margin: 0;
       animation: fadeIn 1s ease-in-out;
+
     }
 
     .container {
+
       max-width: 1200px;
       margin: auto;
       padding: 50px;
       animation: slideIn 1.5s ease-in-out;
+
     }
 
     svg {
+
       width: 100%;
       height: auto;
+
     }
 
     .region {
+
       fill: #2bff00;
       transition: 0.4s ease;
       cursor: pointer;
+
     }
 
     .region:hover {
+
       fill: #ff0000;
+
     }
 
     .region:active {
+
       fill: #00f7ff;
+
     }
 
     h1 {
+
       color: #d2e000;
-      font-size: 2.5rem;
+      font-size: 2.4rem;
       animation: fadeInText 1.5s ease-out;
+
     }
 
     .details {
+      
       background-color: rgba(0, 0, 0, 0.7);
       padding: 20px;
       margin-top: 20px;
       opacity: 0;
       animation: fadeInDetails 2s ease-in-out forwards;
+
     }
 
     .details h2 {
+
       color: #00f7ff;
+
     }
 
     .details p {
+
       font-size: 16px;
       animation: fadeInText 1s ease-out;
+
     }
 
     .task-list {
+
       list-style-type: none;
       padding: 0;
       text-align: left;
+
     }
 
     .task-list li {
+
       font-size: 18px;
       padding: 10px;
       border-bottom: 1px solid #444;
       opacity: 0;
       animation: fadeInText 1s ease-in-out forwards;
+
     }
 
     .task-list li:nth-child(1) {
+
       animation-delay: 0.5s;
+
     }
 
     .task-list li:nth-child(2) {
+
       animation-delay: 1s;
+
     }
 
     .task-list li:nth-child(3) {
+
       animation-delay: 1.5s;
+
     }
 
     .task-list li:nth-child(4) {
+
       animation-delay: 2s;
+
     }
 
     .task-list li:nth-child(5) {
+
       animation-delay: 2.5s;
+
     }
 
     .task-list li:nth-child(6) {
+
       animation-delay: 3s;
+
     }
 
     .task-list input[type="checkbox"] {
+
       margin-right: 10px;
       cursor: pointer;
+
     }
 
     @keyframes fadeIn {
+
       0% {
         opacity: 0;
       }
       100% {
         opacity: 1;
       }
+
     }
 
     @keyframes fadeInText {
+
       0% {
         opacity: 0;
         transform: translateY(20px);
@@ -125,9 +174,11 @@
         opacity: 1;
         transform: translateY(0);
       }
+
     }
 
     @keyframes fadeInDetails {
+
       0% {
         opacity: 0;
         transform: translateY(20px);
@@ -136,64 +187,92 @@
         opacity: 1;
         transform: translateY(0);
       }
+
     }
 
     @keyframes slideIn {
+
       0% {
         transform: translateX(-100%);
       }
       100% {
         transform: translateX(0);
       }
+
     }
+
   </style>
+
 </head>
 
 <body>
+
   <div class="container">
+
     <a href="index.html" style="text-decoration: none;">
-      <h1>Operation Bangkok: Move Immediately</h1>
+      <h1 class="hover-animate" style="margin: 0;">Operation Bangkok: Move Immediately</h1>
+      <style>
+        .hover-animate {
+          transition: transform 0.3s ease, color 0.3s ease;
+          color: greenyellow;
+        }
+    
+        .hover-animate:hover {
+          transform: scale(1.05);
+          color: rgba(172, 255, 47, 0.363);
+        }
+      </style>
     </a>
 
-    <div class="details">
-      <h2>Mission Start</h2>
-      <p>This is not a drill. This is not a maybe. This is not a "one day." The call has been made and it's loud: We're moving to Bangkok permanently—immediately. Everything up to now was preparation. Everything from now on is action. Logistics. Emotional readiness. Complete internal clearance. This is happening.</p>
-    </div>
+    <br>
 
     <div class="details">
-      <h2>Immediate Actions</h2>
+
+      <h2>Your Operation.</h2>
+
       <ul class="task-list">
         <li>
-          <input type="checkbox" id="task1"> <label for="task1">✔️ action parables & platters hardbody until month end.</label>
+          <input type="checkbox" id="task1"> <label for="task1">action parables & platters hardbody until month end, and acquire your own living space with thato. the result here must be your own space in town. (in progress...) / 
+            
+            <br>
+            <br>
+            <br>
+            
+            * we have been hit... from position A to position B - vigor is still. /
+          
+            <br>
+            <br> --
+            <br>
+            <br>
+
+            * as a repurcussion and aim forward and to get out of the congo stinch - secure gym membership. NOW!
+          
+          </label>
         </li>
+
         <li>
-          <input type="checkbox" id="task2"> <label for="task2">✔️ acquire the kitchen <a href="kznbc.co.za">kznbc.co.za / 063 878 6771 / 083 958 7651</a></label>
+          <input type="checkbox" id="task4"> <label for="task4">acquire purefitness gym membership - R300 p/m.</label>
         </li>
+
         <li>
-          <input type="checkbox" id="task3"> <label for="task3">✔️ move into the kitchen.</label>
+          <input type="checkbox" id="task5"> <label for="task5">join durban collegians.</label>
         </li>
+
         <li>
-          <input type="checkbox" id="task4"> <label for="task4">✔️ acquire purefitness gym membership.</label>
+          <input type="checkbox" id="task8"> <label for="task8">mission successful.</label>
         </li>
-        <li>
-          <input type="checkbox" id="task5"> <label for="task5">✔️ play for collegians.</label>
-        </li>
-        <li>
-          <input type="checkbox" id="task6"> <label for="task6">✔️ mission half-complete.</label>
-        </li>
-        <li>
-          <input type="checkbox" id="task7"> <label for="task7">✔️ acquire the man-cave with hoss.</label>
-        </li>
-        <li>
-          <input type="checkbox" id="task8"> <label for="task8">✔️ mission successful.</label>
-        </li>
+
       </ul>
+
     </div>
+
   </div>
 
   <script>
+
     // Function to load the saved checkbox state from local storage
     window.onload = function () {
+
       for (let i = 1; i <= 8; i++) {
         let task = document.getElementById('task' + i);
         if (localStorage.getItem('task' + i) === 'true') {
@@ -206,9 +285,23 @@
         });
       }
     };
+
   </script>
+
 </body>
+
 </html>
+
+<!-- animate literally each and everything here... animations all round - animations all over. -->
+
+
+
+
+
+
+
+
+
 
 
 
