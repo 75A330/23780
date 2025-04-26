@@ -13,7 +13,9 @@
   <link rel="icon" href="images/morpheus.jpg"/>
 
   <style>
+
     body {
+
       margin: 0;
       font-family: 'Courier New', Courier, monospace;
       color: #d4d4d4;
@@ -22,60 +24,80 @@
       text-align: center;
       overflow-x: hidden;
       animation: fadeInBg 5s ease-in-out;
+
     }
   
     @keyframes fadeInBg {
+
       from { opacity: 0; }
       to { opacity: 1; }
+
     }
   
     .container {
+
       max-width: 1200px;
       margin: auto;
       padding: 50px 20px;
       animation: fadeInUp 2s ease;
+
     }
   
     a {
+
       text-decoration: none;
       color: inherit;
+
     }
   
     h1 {
+
       color: #d2e000;
       font-size: 42px;
       animation: pulse 2s infinite alternate;
+
     }
   
     h2 {
+
       color: #00f7ff;
       cursor: pointer;
       transition: color 0.3s;
       animation: flipIn 1s ease;
+
     }
   
     h2:hover {
+
       color: #ff0000;
+
     }
   
     h3 {
+
       color: #2bff00;
       cursor: pointer;
       animation: pulseSoft 3s infinite;
+
     }
   
     h4 {
+
       color: #ffffffa9;
       font-style: italic;
       margin-bottom: 10px;
       animation: fadeIn 1.5s ease-in-out;
+
     }
   
     p {
+
       animation: fadeInSlow 2s ease;
+
     }
   
     .tunnel {
+
       background-color: rgba(0, 0, 0, 0.6);
       margin: 30px auto;
       padding: 20px;
@@ -84,66 +106,88 @@
       text-align: left;
       animation: zoomIn 0.8s ease;
       transition: transform 0.3s;
+
     }
   
     .tunnel:hover {
+
       transform: scale(1.02);
       border-color: #ff004c;
+
     }
   
     .intel {
+
       display: none;
       margin-top: 15px;
       padding-left: 15px;
       border-left: 2px solid #00f7ff;
       animation: slideDown 0.5s ease;
+
     }
   
     .intel-details {
+
       display: none;
       margin-top: 10px;
       background-color: rgba(0, 0, 0, 0.5);
       padding: 10px;
       border-radius: 5px;
       animation: fadeInSlow 1s ease;
+
     }
   
     .open {
+
       display: block !important;
+
     }
   
     /* ANIMATIONS */
     @keyframes fadeInUp {
+
       from { opacity: 0; transform: translateY(30px); }
       to { opacity: 1; transform: translateY(0); }
+
     }
   
     @keyframes fadeIn {
+
       from { opacity: 0; }
       to { opacity: 1; }
+
     }
   
     @keyframes fadeInSlow {
+
       0% { opacity: 0; }
       100% { opacity: 1; }
+
     }
   
     @keyframes zoomIn {
+
       from { transform: scale(0.95); opacity: 0; }
       to { transform: scale(1); opacity: 1; }
+
     }
   
     @keyframes pulse {
+
       from { transform: scale(1); }
       to { transform: scale(1.05); }
+
     }
   
     @keyframes pulseSoft {
+
       0%, 100% { opacity: 0.8; }
       50% { opacity: 1; }
+
     }
   
     @keyframes flipIn {
+
       from {
         transform: rotateX(-90deg);
         opacity: 0;
@@ -152,42 +196,60 @@
         transform: rotateX(0deg);
         opacity: 1;
       }
+
     }
   
     @keyframes slideDown {
+
       from { max-height: 0; opacity: 0; }
       to { max-height: 1000px; opacity: 1; }
+
     }
   
     /* MOBILE OPTIMIZATION */
     @media (max-width: 768px) {
+
       h1 {
+
         font-size: 32px;
+
       }
   
       h2 {
+
         font-size: 22px;
+
       }
   
       .tunnel {
+
         padding: 15px;
+
       }
   
       .intel-details {
+
         font-size: 14px;
+
       }
   
       .container {
+
         padding: 30px 15px;
+
       }
+
     }
+
   </style>
 
 <script>
+
   function toggleIntel(id) {
     const element = document.getElementById(id);
     element.classList.toggle('open');
   }
+
 </script>
 
 </head>
@@ -200,12 +262,12 @@
 
     <div class="tunnel">
 
-
       <!-- TUNNEL A -->
       <h2 onclick="toggleIntel('xfiles')">Tunnel A - X-Files</h2>
       <h4>deletions</h4>
 
       <div class="intel" id="xfiles">
+
         <h3 onclick="toggleIntel('jilda')">• Jilda (from the Universal Church)</h3>
         <div class="intel-details" id="jilda">
           <p>uzogcwala ngami. - never speak to her again. I want to see what her feet look like. draw her to you, but without saying a word.</p>
@@ -224,9 +286,15 @@
           <br>  
           Acquire Savannah Park property. Secure it, make it yours. We need 10k a month for this. peace just be wealthy for this one - akukh' okunye.</p>
           <p>currently on R0.</p>
-        </div>
-
       </div>
+
+      <h3 onclick="toggleIntel('sarah')">• sarah (hoss' cousin)</h3>
+        <div class="intel-details" id="sarah">
+          <p>evidence.</p>
+          <img src="tunnel rats/Screenshot (12).png" width="400px">
+          <img src="tunnel rats/Screenshot (13).png" width="400px">
+          <img src="tunnel rats/Screenshot (14).png" width="400px">
+        </div>
 
     </div>
 

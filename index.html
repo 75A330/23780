@@ -13,158 +13,211 @@
   <link rel="icon" href="images/morpheus.jpg"/>
 
   <style>
+
     /* Base setup */
     body {
+
       margin: 0;
       font-family: 'Courier New', monospace;
       background: linear-gradient(135deg, #2f2f2f 25%, #505050 25%, #505050 50%, #2f2f2f 50%);
       background-size: 60px 60px;
       color: #d4d4d4;
       animation: camoSlide 20s linear infinite;
+
     }
   
     @keyframes camoSlide {
+
       0% { background-position: 0 0; }
       100% { background-position: 600px 600px; }
+
     }
   
     /* Headings */
     h1, h2 {
+
       text-align: center;
       text-transform: uppercase;
       letter-spacing: 3px;
-      color: #d2e000;
+      color: greenyellow;
       animation: fadeInUp 2s ease-in-out;
+
     }
   
     h1 { font-size: 50px; }
     h2 { font-size: 30px; }
   
     @keyframes fadeInUp {
+
       0% { opacity: 0; transform: translateY(20px); }
       100% { opacity: 1; transform: translateY(0); }
+
     }
   
     /* Links */
     a {
+
       text-decoration: none;
       transition: all 0.3s ease-in-out;
       animation: fadeIn 2s ease-in-out;
+
     }
   
     .headings, .list {
+
       color: white;
+
     }
   
     .headings:hover, .list:hover {
-      color: #2bff00;
+
+      color: greenyellow;
       transform: scale(1.05);
+
     }
   
     .secret-link {
+
       display: block;
       margin-top: 10px;
       color: #d4d4d4;
       animation: fadeIn 1.5s ease-in;
+      text-align: center;
+
     }
   
     .secret-link:hover {
-      color: #2bff00;
+
+      color: green;
       transform: scale(1.05);
+
     }
   
     @keyframes fadeIn {
+
       from { opacity: 0; }
       to { opacity: 1; }
+
     }
   
     /* Container & sections */
     .container {
+
       max-width: 1100px;
       margin: auto;
       padding: 20px;
       animation: slideIn 1.5s ease-out;
+
     }
   
     .section {
+
       margin: 30px 0;
       padding: 20px;
       background: rgba(0, 0, 0, 0.6);
-      border-left: 5px solid #2bff00;
+      border-left: 5px solid greenyellow;
       transition: 0.4s;
       animation: zoomIn 1s ease-in-out;
+
     }
   
     .section:hover {
+
       border-left: 5px solid #f00;
       background: rgba(0, 0, 0, 0.8);
       transform: scale(1.02);
+
     }
   
     @keyframes zoomIn {
+
       0% { transform: scale(0.9); opacity: 0; }
       100% { transform: scale(1); opacity: 1; }
+
     }
   
     /* Inputs & buttons */
     input[type="password"] {
+
       padding: 10px;
       border: none;
       width: 200px;
       font-size: 16px;
       animation: fadeIn 2s ease-in;
       transition: all 0.3s;
+      text-align: center;
+
     }
   
     input[type="password"]:focus {
+
       outline: none;
       background-color: #111;
-      color: #2bff00;
+      color: greenyellow;
+      text-align: center;
+
     }
   
     button {
+
       padding: 10px 20px;
-      background-color: #2bff00;
+      background-color: greenyellow;
       border: none;
       cursor: pointer;
       font-weight: bold;
       animation: pulse 2s infinite;
       transition: background-color 0.3s;
+
     }
   
     button:hover {
-      background-color: #1aff00;
+
+      background-color: rgba(172, 255, 47, 0.459);
       transform: scale(1.05);
+
     }
   
     @keyframes pulse {
+
       0% { transform: scale(1); }
       50% { transform: scale(1.05); }
       100% { transform: scale(1); }
+
     }
   
     /* Hidden */
     .hidden {
+
       display: none;
+
     }
   
     /* Mobile styling */
     @media (max-width: 768px) {
+
       h1 { font-size: 36px; }
       h2 { font-size: 22px; }
   
       .section {
+        
         padding: 10px;
+
       }
   
       input[type="password"] {
-        width: 100%;
+
+        width: 95%;
+        text-align: center;
+
       }
   
       button {
-        width: 100%;
+
+        width: 90%;
         margin-top: 10px;
+
       }
+
     }
   
   </style>  
@@ -191,7 +244,7 @@
 <div id="main-site" class="hidden">
   <div class="container">
     <a href="index.html" style="text-decoration: none;">
-      <h1 class="hover-animate" style="margin: 0;">AirCav (Military Organisation) HQ</h1>
+      <h1 class="hover-animate" style="margin: 0;">HQ</h1>
       <style>
         .hover-animate {
           transition: transform 0.3s ease, color 0.3s ease;
@@ -227,6 +280,15 @@
         <li>What's protocol?</li>
       </ul>
     </div>
+
+    <div class="section">
+      <a href="positions.html" class="headings"><h2>Positions</h2></a>
+      <ul>
+        <li>Position A</li>
+      </ul>
+    </div>
+
+    <!-- lock this with PIN -->
 
     <div class="section">
       <a href="importantlinks.html" class="headings"><h2>Important Links</h2></a>
@@ -285,7 +347,7 @@
       secretLinks.classList.remove("hidden");
       secretError.innerText = "";
     } else {
-      secretError.innerText = "Incorrect PIN for tunnels.";
+      secretError.innerText = "Incorrect PIN. Access Denied";
     }
 
   }
@@ -302,7 +364,6 @@ document.getElementById("secretPin").addEventListener("keydown", function(event)
   }
 });
 
-
 </script>
 
 </body>
@@ -310,6 +371,8 @@ document.getElementById("secretPin").addEventListener("keydown", function(event)
 </html>
 
 <!-- @aircavcompany / the disillusionment is aerospace. -->
+
+<!-- cv soundtrack... but only after Pin has been entered. -->
 
 
 

@@ -1,159 +1,243 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
+
+  <meta charset="UTF-8"/>
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
   <title>The Mission</title>
+
   <link rel="icon" href="images/morpheus.jpg"/>
 
   <style>
+
     body {
+
       background-color: #121212;
       color: #cceacc;
       font-family: monospace;
       padding: 30px;
       animation: fadeInBody 1.5s ease-in;
+
     }
 
     h1 {
+
       text-align: center;
-      color: #00ff88;
+      color: greenyellow;
       animation: pulse 2s infinite alternate;
+
     }
 
     h2 {
+
       text-align: center;
-      color: #91ffc6;
+      color: greenyellow;
       animation: fadeInUp 1s ease;
+
     }
 
     .container {
+
       max-width: 800px;
       margin: auto;
       background: #1c1c1c;
       padding: 30px;
-      border: 2px dashed #00ff88;
+      border: 2px dashed greenyellow;
       border-radius: 10px;
       animation: zoomIn 1s ease;
+
     }
 
     input[type="password"],
     textarea,
     button {
-      width: 100%;
+
+      width: 95%;
       padding: 12px;
       margin-top: 10px;
       background: #1a1a1a;
       color: #cceacc;
-      border: 1px solid #00ff88;
+      border: 1px solid greenyellow;
       border-radius: 5px;
       font-size: 15px;
       transition: all 0.2s ease-in-out;
+      text-align: center;
+
     }
 
     input::placeholder, textarea::placeholder {
+
       color: #888;
+      text-align: center;
+
     }
 
     input:focus,
     textarea:focus {
+
       outline: none;
       border-color: #00ffa2;
       background-color: #101010;
+      text-align: center;
+      color: greenyellow;
+
     }
 
     button {
-      background-color: #00ff88;
+
+      background-color: greenyellow;
       color: #000;
       font-weight: bold;
       cursor: pointer;
+      width: 500px;
+
     }
 
     button:hover:not(:disabled) {
-      background-color: #1effa6;
+
+      background-color: greenyellow;
       transform: scale(1.03);
+
     }
 
     button:disabled {
+
       background-color: #555;
       cursor: not-allowed;
+
     }
 
     #intel-form {
+
       display: none;
       animation: fadeInUp 1s ease;
+
     }
 
     .error,
     .success,
     .loading {
+
       margin-top: 15px;
       padding: 10px;
       border-radius: 4px;
       font-weight: bold;
+
     }
 
     .error {
+
       color: #ff5c5c;
       background: #2a0000;
+
     }
 
     .success {
-      color: #1fff99;
-      background: #003315;
+
+      color: greenyellow;
+      background: rgba(172, 255, 47, 0.336);
+
     }
 
     .loading {
+
       color: #fff9cc;
       background: #333300;
+
     }
 
     /* Animations */
     @keyframes fadeInBody {
+
       from { opacity: 0; }
       to { opacity: 1; }
+
     }
 
     @keyframes fadeInUp {
+
       from { opacity: 0; transform: translateY(30px); }
       to { opacity: 1; transform: translateY(0); }
+
     }
 
     @keyframes pulse {
+
       from { transform: scale(1); }
       to { transform: scale(1.05); }
+
     }
 
     @keyframes zoomIn {
+
       from { transform: scale(0.95); opacity: 0; }
       to { transform: scale(1); opacity: 1; }
+
+    }
+
+    #intelPin {
+
+      width: 470px;
+
     }
 
     @media (max-width: 600px) {
+
       body {
+
         padding: 20px;
+
       }
 
       h1 {
+
         font-size: 28px;
+
       }
 
       h2 {
+
         font-size: 18px;
+
       }
 
       .container {
+
         padding: 20px;
+
       }
 
       textarea {
+
         height: 120px;
+        color: greenyellow;
+
       }
+
+      #intelPin {
+
+        width: 180px;
+
+      }
+
+      button {
+
+        width: 220px;
+
+      }
+
     }
+
   </style>
+
 </head>
 
 <body>
+
   <div class="container">
     <a href="index.html" style="text-decoration: none;">
       <h1>The Mission</h1>
@@ -167,8 +251,9 @@
 
     <form id="intel-form">
       <div class="form-group">
+        <br>
         <label for="intel">Breach Report:</label>
-        <textarea name="intel" id="intelTextarea" placeholder="Type your report..." required></textarea>
+        <textarea name="intel" id="intelTextarea" placeholder="Talk to Me..." required></textarea>
       </div>
       <button type="submit" id="submitBtn">Transmit to HQ</button>
       <div id="formResponse" class="loading" style="display: none;"></div>
@@ -176,6 +261,7 @@
   </div>
 
   <script>
+
     const INTEL_PIN = "777";
 
     function unlockIntel() {
@@ -231,6 +317,29 @@
         submitBtn.disabled = false;
       }
     });
+
+    document.getElementById("intelPin").addEventListener("keydown", function(event) {
+  if (event.key === "Enter") {
+    unlockIntel();
+  }
+});
+
   </script>
+
 </body>
+
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

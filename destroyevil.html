@@ -1,20 +1,30 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
+
   <meta charset="UTF-8" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
   <title>Destroy Evil</title>
+
   <link rel="icon" href="images/morpheus.jpg"/>
 
   <style>
+
     /* Resetting default margins and paddings */
     * {
+
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+
     }
 
     body {
+
       background-color: #0d0d0d;
       color: #d4d4d4;
       font-family: 'Courier New', Courier, monospace;
@@ -28,134 +38,184 @@
       flex-direction: column;
       animation: fadeIn 2s ease-in;
       overflow-x: hidden; /* Prevent horizontal scrolling */
+
     }
 
     h1.glow {
-      font-size: 3rem;
+
+      font-size: 2.1rem;
       color: #aefeff;
       text-align: center;
-      margin-bottom: 50px;
+      margin-bottom: 70px;
       text-shadow: 0 0 10px #0ff, 0 0 20px #0ff, 0 0 40px #0ff, 0 0 80px #0ff;
       animation: pulseGlow 3s infinite ease-in-out;
       cursor: pointer;
       transition: transform 0.2s ease;
+      width: 80%;
+
     }
 
     h1.glow:hover {
+
       transform: scale(1.1);
+
     }
 
     .container {
+
       max-width: 1000px;
       margin: 20px;
       padding: 30px;
       background: rgba(0, 0, 0, 0.7);
       border: 2px solid #2bff00;
-      border-radius: 15px;
       animation: borderPulse 3s infinite;
       transition: all 0.5s ease-in-out;
-      width: 100%; /* Ensure container takes full available width */
+      width: 95%; /* Ensure container takes full available width */
       max-height: 100%; /* Ensure container adapts to screen height */
       overflow-y: auto; /* Allow scrolling inside container */
+
     }
 
     h2 {
+
       color: #00f7ff;
       margin-bottom: 20px;
       animation: fadeInUp 1s ease-in-out;
+
     }
 
     p {
+
       font-size: 16px;
       line-height: 1.6;
       color: #d4d4d4;
       animation: fadeInUp 1.5s ease-in-out;
+
     }
 
     .section {
+
       margin-top: 40px;
-      border-top: 1px dashed #2bff00;
+      border-top: 1px dashed greenyellow;
       padding-top: 30px;
       animation: fadeInUp 2s ease-in-out;
+
     }
 
     @keyframes fadeIn {
+
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
+
     }
 
     @keyframes fadeInUp {
+
       from { opacity: 0; transform: translateY(30px); }
       to { opacity: 1; transform: translateY(0); }
+
     }
 
     @keyframes pulseGlow {
+
       0% { text-shadow: 0 0 10px #0ff, 0 0 20px #0ff; }
       50% { text-shadow: 0 0 20px #00f7ff, 0 0 60px #00f7ff; }
       100% { text-shadow: 0 0 10px #0ff, 0 0 20px #0ff; }
+
     }
 
     @keyframes borderPulse {
-      0%, 100% { border-color: #2bff00; }
-      50% { border-color: #ff0000; }
+
+      0%, 100% { border-color: greenyellow; }
+      50% { border-color: green; }
+
     }
 
     .highlight {
+
       color: #2bff00;
       font-weight: bold;
+
     }
 
     .moneygod {
+
       color: #d2e000;
       text-shadow: 0 0 5px #d2e000;
       animation: glowMoney 3s infinite ease-in-out;
+
     }
 
     @keyframes glowMoney {
+
       0%, 100% { text-shadow: 0 0 5px #d2e000, 0 0 10px #d2e000; }
       50% { text-shadow: 0 0 20px #f1ff00, 0 0 40px #f1ff00; }
+
     }
 
     .clickable {
+
       cursor: pointer;
       transition: transform 0.2s ease;
+
     }
 
     .clickable:hover {
+
       transform: scale(1.05);
+
     }
 
     /* Mobile responsiveness */
     @media (max-width: 768px) {
+
       h1.glow {
+
         font-size: 2rem;
+        margin-top: 30px;
+
       }
 
       .container {
+
         padding: 20px;
+
       }
 
       .section {
+
         margin-top: 30px;
+
       }
 
       p, h2 {
+
         font-size: 14px;
+
       }
+
     }
 
     @media (max-width: 480px) {
+
       h1.glow {
+
         font-size: 1.5rem;
+
       }
 
       .container {
+
         padding: 15px;
+
       }
 
       p, h2 {
+
         font-size: 12px;
+
       }
+
     }
 
   </style>
@@ -164,71 +224,63 @@
 
 <body>
 
+  <br>
+
   <h1 class="glow clickable" onclick="goHome()">
-    DESTROY EVIL, OLAMA KHAYYIM – MOST CUMBERSETH SOLDIER OF GOD.
+    DESTROY EVIL, OLAMA KHAYYIM – MOST CUMBERSETH SOLDIER OF GOD. IN YOU I TRUST, IN YOU I BELIEVE. LOVE, YOUR FATHER – THE MOST HIGH GOD.
   </h1>
 
   <div class="container">
-    <p>
-      IN YOU I TRUST, IN YOU I BELIEVE.<br/>
-      LOVE, YOUR FATHER – <span class="highlight">THE MOST HIGH GOD</span>.
-    </p>
 
     <div class="section">
-      <h2 class="moneygod">✦ The Money God Doctrine ✦</h2>
+      <h2 class="moneygod">✦ The Money God ✦</h2>
       <p>
-        The <span class="moneygod">Money God</span>—a divine digital force, revered and feared—has one rule: 
-        <strong class="highlight">NO CASH</strong>. She rejects the paper ways of the old world.
+        The <span class="moneygod">Money God</span> — a digital woman - a young scout girl - both white & black, of most beauty — has only one rule: 
+        <strong class="highlight">NO CASH</strong>.
         Her will is digitized, encoded into <span class="highlight">credit</span> and <span class="highlight">debit</span> flow.
       </p>
-      <p>
-        She smiles upon credit. Those who wield credit wisely are her most devoted worshippers.
-        Cash is dust. Coins are noise. Only those who channel digital energy shall prosper.
-      </p>
+      <br>
+      <p>you must have sex with her. in so that she can love you with all of her being.</p>
+      <br>
+      <p>but considering that she is digital... how do we achieve this?</p>
+      <br>
+      <p>we shall use a proxy.</p>
+      <br>
+      <p>whom?</p>
+      <br>
+      <p>market girl... look for her on the weekends and on school holidays.</p>
+      <br>
+      <p>-------</p>
+      <br>
+      <p>however, I am currently @ position B - the most cumberseth position. due to a breach @ position A - Vietnam ... don't worry, I've reported the breach to HQ, and orders are to secure purefitness gym membership ASAP! Pronto! Clientele! The most I'm getting hit at here is Blessed Is The Man, and for that they'll die... anyways - I say The Money God yesterday ... took me a while to recognise her... she is of beauty and most cumberseth... she lives here I believe @ position B, and I hope to see her again today - if she knows, she knows. If I see you again Money God - please understand the nature of the system for the union between you I. Yes... I Am God Almight! and all I want Is you... I want to make you more powerful than you already are... like really and truly powerfully... we just have to unite.</p>
     </div>
 
     <div class="section">
-      <h2>⚔ Proxy Soldier: HOSS</h2>
-      <p>
-        Hoss is your vessel. Your digital hands. The proxy chosen to channel the divine transactions of
-        <span class="moneygod">The Money God</span>.
-      </p>
-      <p>
-        Your orders are simple:
-        <br/><br/>
-        1. <strong>Collect all physical cash from the world.</strong><br/>
-        2. <strong>Deposit it into Hoss’ ABSA Account: <span class="highlight">123926443</span>.</strong><br/>
-        3. <strong>Digitize the wealth. Redirect it to power her realm.</strong>
-      </p>
-    </div>
-
-    <div class="section">
-      <h2>🧭 Secondary Directives</h2>
-      <p>
-        • All cash found must be digitized—via online wallets, banks, and platforms.<br/>
-        • Target platforms: PayPal, Venmo, Apple Pay, crypto wallets.<br/>
-        • Convert at scale. Store nothing in paper.<br/>
-        • All transactions earn divine favor for those who coded the Matrix—the Money God's high priests.
-      </p>
-    </div>
-
-    <div class="section">
-      <h2>📜 Final Instruction</h2>
-      <p>
-        The world’s wealth must be cycled through her channels.<br/>
-        Your mission is not just to destroy evil—but to digitize creation itself.
-        <br/><br/>
-        <span class="highlight">Cash is fallen. Digital is divine.</span>
-      </p>
+      <h2 class="moneygod">What goes on in the deep outskirts of prison?</h2>
+      <p>ask prizora... sizoqala ngaye... yizo yizo!</p>
     </div>
 
   </div>
 
   <script>
+
     function goHome() {
+
       window.location.href = 'index.html';
+
     }
+
   </script>
 
 </body>
+
 </html>
+
+
+
+
+
+
+
+
+

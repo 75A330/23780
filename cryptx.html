@@ -4,13 +4,18 @@
 
 <head>
 
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8"/>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
   <title>CryptX</title>
+
   <link rel="icon" href="images/morpheus.jpg"/>
 
   <style>
+
     body {
+
       font-family: 'Courier New', Courier, monospace;
       background-color: #0d0d0d;
       color: #d4d4d4;
@@ -22,9 +27,11 @@
       flex-direction: column;
       overflow: hidden;
       position: relative;
+
     }
 
     #matrix {
+
       position: absolute;
       top: 0;
       left: 0;
@@ -32,48 +39,60 @@
       height: 100%;
       pointer-events: none;
       z-index: -1;
+
     }
 
     #chat-container {
+
       width: 60%;
       max-width: 800px;
       background-color: rgba(0, 0, 0, 0.7);
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+
     }
 
     h1 {
+
       text-align: center;
       color: #00ff00;
       margin-bottom: 20px;
       text-decoration: none;
+
     }
 
     #messages {
+
       max-height: 400px;
       overflow-y: auto;
       margin-bottom: 20px;
       padding: 10px;
       background-color: #222;
       border-radius: 5px;
+
     }
 
     .message {
+
       background-color: #333;
       padding: 10px;
       margin-bottom: 5px;
       border-radius: 5px;
       color: #fff;
+
     }
 
     #input-container {
+
       display: flex;
       justify-content: space-between;
       gap: 10px;
+
     }
 
     input[type="text"] {
+
       flex: 1;
       padding: 10px;
       font-size: 16px;
@@ -81,9 +100,11 @@
       border: 1px solid #333;
       background-color: #444;
       color: #fff;
+
     }
 
     button {
+
       padding: 10px;
       background-color: #2bff00;
       border: none;
@@ -91,13 +112,17 @@
       font-size: 16px;
       cursor: pointer;
       border-radius: 5px;
+
     }
 
     button:hover {
+
       background-color: #00f7ff;
+
     }
 
     #encryptedPreview {
+
       background-color: #222;
       color: #00f7ff;
       padding: 10px;
@@ -105,11 +130,16 @@
       border-radius: 5px;
       font-family: monospace;
       word-wrap: break-word;
+
     }
 
     #decrypt-section {
+
       margin-top: 20px;
+
     }
+
+    /* mobile styling */
 
   </style>
 
