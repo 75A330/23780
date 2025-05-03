@@ -1,2 +1,144 @@
-System Identifier
-DESKTOP-M9N7329 6412 - 1w24:A37
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Positions</title>
+  <link rel="icon" href="images/morpheus.jpg" />
+
+  <style>
+    body {
+      background-color: #1c1c1c;
+      color: #d4d4d4;
+      font-family: 'Courier New', Courier, monospace;
+      text-align: center;
+      margin: 0;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 50px 20px;
+    }
+
+    h1 {
+      color: #d2e000;
+      margin-bottom: 40px;
+      animation: glowTitle 2s infinite alternate;
+    }
+
+    .position-block {
+      background-color: rgba(0, 0, 0, 0.8);
+      margin: 30px auto;
+      padding: 30px;
+      border: 2px solid #2bff00;
+      border-radius: 10px;
+      text-align: left;
+      max-width: 900px;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+      animation: fadeIn 1s ease-in;
+    }
+
+    .position-block:hover {
+      transform: scale(1.02);
+      background-color: rgba(20, 20, 20, 0.95);
+    }
+
+    .position-block h2 {
+      color: #00f7ff;
+      margin-bottom: 10px;
+    }
+
+    .position-block p {
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    .video-link {
+      color: #2bff00;
+      font-weight: bold;
+      text-decoration: underline;
+      transition: 0.3s;
+    }
+
+    .video-link:hover {
+      color: red;
+    }
+
+    @keyframes glowTitle {
+      from {
+        text-shadow: 0 0 10px #2bff00;
+      }
+
+      to {
+        text-shadow: 0 0 20px #00f7ff;
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    a.back-home {
+      display: inline-block;
+      margin-top: 30px;
+      text-decoration: none;
+      color: #00f7ff;
+      font-weight: bold;
+      transition: 0.3s ease;
+    }
+
+    a.back-home:hover {
+      color: #ff0000;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>Positions</h1>
+
+    <div class="position-block">
+      <h2>Position A – Vietnam</h2>
+      <p>Marked for complete and utter destruction. No remains. No ghosts. No signal.</p>
+    </div>
+
+    <div class="position-block">
+      <h2>Position B – Congo</h2>
+      <p>
+        Smart ID card located. Contents: sleeping bag, 4-strap covered sandals, and a few articles of clothing. Nothing more.
+        <br><br>
+        <a href="https://www.youtube.com/results?search_query=blood+diamond+movie+scenes" class="video-link" target="_blank">View Blood Diamond Footage</a> – T.I.A.
+      </p>
+    </div>
+
+    <div class="position-block">
+      <h2>Position C – Bangkok</h2>
+      <p>Initial drop zone. Eyes wide, soldier. You only get one shot to breathe here before the second wave.</p>
+    </div>
+
+    <div class="position-block">
+      <h2>Position Echo – eThekwini Municipality Library</h2>
+      <p>
+        System Identifier:<br>
+        <code>DESKTOP-M9N7329<br>6412 - 1w24:A37</code><br><br>
+        ⚠️ Surveillance might be active. No downloads. Just observe.
+      </p>
+    </div>
+
+    <a href="index.html" class="back-home">⟵ Return to HQ</a>
+  </div>
+
+</body>
+
+</html>
