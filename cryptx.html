@@ -108,7 +108,7 @@
       padding: 10px;
       background-color: #2bff00;
       border: none;
-      color: white;
+      color: black;
       font-size: 16px;
       cursor: pointer;
       border-radius: 5px;
@@ -139,7 +139,31 @@
 
     }
 
-    /* mobile styling */
+    @media (max-width: 768px) {
+
+      #chat-container {
+
+        width: 90%;
+        padding: 15px;
+
+      }
+
+      #input-container {
+
+        flex-direction: column;
+        width: 90%;
+
+      }
+
+      input[type="text"],
+      button {
+
+        width: 90%;
+        font-size: 14px;
+
+      }
+
+    }
 
   </style>
 
@@ -151,7 +175,7 @@
 
   <div id="chat-container">
 
-    <a href="index.html" style="text-decoration: none;">
+    <a href="index.html" style="text-decoration: none;" title="back to HQ.">
       <h1>CryptX</h1>
     </a>
 
@@ -246,6 +270,7 @@
     }
 
     async function decryptAES(cipher, password) {
+
       try {
         const enc = new TextEncoder();
         const dec = new TextDecoder();
@@ -286,14 +311,17 @@
         console.error("Decryption failed:", error);
         return "[Decryption Error]";
       }
+
     }
 
     // Function to encrypt and preview the message
     async function encryptAndPreviewMessage() {
+
       const input = document.getElementById("messageInput").value.trim();
       if (!input) return;
       const encryptedMessage = await encryptAES(input, secret);
       document.getElementById("encryptedPreview").textContent = encryptedMessage;
+
     }
 
     // Function to send the encrypted message to MongoDB
@@ -313,15 +341,37 @@
 
     // Function to decrypt a message
     async function decryptMessage() {
+
       const encryptedMessage = document.getElementById("decryptInput").value.trim();
       if (!encryptedMessage) return;
 
       const decryptedMessage = await decryptAES(encryptedMessage, secret);
       document.getElementById("decryptedOutput").textContent = decryptedMessage;
+
     }
+
+    function resizeCanvas() {
+
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas(); // call it on load too
+
 
   </script>
 
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+

@@ -8,13 +8,12 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>AirCav (Military Organisation)</title>
+  <title>23780</title>
 
   <link rel="icon" href="images/morpheus.jpg"/>
 
   <style>
 
-    /* Base setup */
     body {
 
       margin: 0;
@@ -226,10 +225,6 @@
 
 <body>
 
-<audio autoplay loop hidden>
-  <source src="aircav.mp3" type="audio/mpeg">
-</audio>
-
 <div id="pin-gate" style="text-align:center; padding-top:100px;">
   <h1>AirCav (Military Organisation)</h1>
   <h2>Welcome Soldier - Olama Khayyim.</h2>
@@ -243,7 +238,7 @@
 <!-- Main Content -->
 <div id="main-site" class="hidden">
   <div class="container">
-    <a href="index.html" style="text-decoration: none;">
+    <a href="index.html" style="text-decoration: none;" title="back to HQ">
       <h1 class="hover-animate" style="margin: 0;">HQ</h1>
       <style>
         .hover-animate {
@@ -259,42 +254,41 @@
     </a>
 
     <div class="section">
-      <a href="themission.html" class="headings"><h2>The Mission</h2></a>
+      <a href="themission.html" class="headings" title="report Your breach."><h2>The Mission</h2></a>
       <ul>
-        <a href="destroyevil.html" class="list"><li>Destroy Evil.</li></a>
-        <a href="bangkok.html" class="list"><li>Move to bangkok ASAP soldier. that's your first mission.</li></a>
-        <a href="cp.html" class="list"><li>* sub-missions / charlie's point.</li></a>
+        <a href="destroyevil.html" class="list" title="O' Khayyim."><li>Destroy Evil.</li></a>
+        <a href="bangkok.html" class="list" title="Bangkok PD."><li>Move to bangkok ASAP Soldier. that's Your first mission.</li></a>
+        <a href="cp.html" class="list" title="you ain't no real soldier until your second tour."><li>* sub-missions / charlie's point tour (1st tour).</li></a>
+        <a href="congodrc.html" class="list" title="see me no more."><li>Congo DRC.</li></a>
       </ul>
     </div>
 
     <div class="section">
-      <a href="aircavelite.html" class="headings"><h2>AirCav Elite (take flight)</h2></a>
+      <a href="aircavelite.html" class="headings" title="o-peace."><h2>AirCav Elite (take flight)</h2></a>
       <ul>
         <li>AirCav (the company) - cumberseth - never to take flight - just minimal profit... very minimal... company hanging in the balance, but just can never seem to fall.</li>
       </ul>
     </div>
 
     <div class="section">
-      <a href="cryptx.html" class="headings"><h2>CryptX</h2></a>
-      <ul>
-        <li>What's protocol?</li>
-      </ul>
+      <a href="cryptx.html" class="headings" title="encryption."><h2>CryptX</h2></a>
     </div>
 
     <div class="section">
-      <a href="positions.html" class="headings"><h2>Positions</h2></a>
-      <ul>
-        <li>Position A</li>
-      </ul>
+      <h2>Positions</h2>
+      <p>🔐 Access Required</p>
+      <input type="password" id="positionsPin" placeholder="Enter PIN" />
+      <button onclick="validatePositions()">Access</button>
+      <p id="positions-error" style="color:red;"></p>
+    
+      <div id="positions-link" class="hidden">
+        <a href="positions.html" class="secret-link">Enter Positions</a>
+      </div>
     </div>
-
-    <!-- lock this with PIN -->
+      
 
     <div class="section">
-      <a href="importantlinks.html" class="headings"><h2>Important Links</h2></a>
-      <ul>
-        <li>here:</li>
-      </ul>
+      <a href="importantlinks.html" class="headings" title="friends."><h2>Important Links</h2></a>
     </div>
 
     <div class="section">
@@ -310,7 +304,7 @@
     </div>
 
     <div class="section">
-      <a href="numberscode.html" class="headings"><h2>Numbers Code</h2></a>
+      <a href="numberscode.html" class="headings"><h2>Delta</h2></a>
       <ul>
         <li>enter therein</li>
       </ul>
@@ -329,11 +323,20 @@
 
     const pinInput = document.getElementById("adminPin").value;
     const errorMsg = document.getElementById("error-msg");
+    
     if (pinInput === ADMIN_PIN) {
       document.getElementById("pin-gate").style.display = "none";
       document.getElementById("main-site").classList.remove("hidden");
+
+      // Create and play audio
+      const audio = new Audio("audio/cv.mp3");
+      audio.loop = true;
+      audio.play().catch(error => {
+        console.error("Audio playback failed:", error);
+      });
+
     } else {
-      errorMsg.innerText = "Invalid PIN. Access Denied.";
+      errorMsg.innerText = "Access Denied.";
     }
 
   }
@@ -347,10 +350,35 @@
       secretLinks.classList.remove("hidden");
       secretError.innerText = "";
     } else {
-      secretError.innerText = "Incorrect PIN. Access Denied";
+      secretError.innerText = "Access Denied.";
     }
 
   }
+
+  const POSITIONS_PIN = "6758";
+
+  function validatePositions() {
+
+    const pin = document.getElementById("positionsPin").value.trim();
+    const errorDisplay = document.getElementById("positions-error");
+    const accessDiv = document.getElementById("positions-link");
+
+    if (pin === POSITIONS_PIN) {
+      accessDiv.classList.remove("hidden");
+      errorDisplay.innerText = "";
+    } else {
+      errorDisplay.innerText = "Incorrect PIN. Access to Positions denied.";
+      accessDiv.classList.add("hidden");
+    }
+    
+  }
+
+  document.getElementById("positionsPin").addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+      validatePositions();
+    }
+  });
+
 
   document.getElementById("adminPin").addEventListener("keydown", function(event) {
   if (event.key === "Enter") {
@@ -372,7 +400,7 @@ document.getElementById("secretPin").addEventListener("keydown", function(event)
 
 <!-- @aircavcompany / the disillusionment is aerospace. -->
 
-<!-- cv soundtrack... but only after Pin has been entered. -->
+
 
 
 
