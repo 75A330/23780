@@ -201,7 +201,163 @@
 
     }
 
-    /* mobile */
+    /* Animate checkbox tick/untick */
+    input[type="checkbox"] {
+
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border: 2px solid #00f7ff;
+      border-radius: 3px;
+      background-color: transparent;
+      transition: all 0.3s ease;
+      position: relative;
+
+    }
+
+    input[type="checkbox"]:checked {
+
+      background-color: #00f7ff;
+      box-shadow: 0 0 10px #00f7ff;
+
+    }
+
+    input[type="checkbox"]::after {
+
+      content: '✓';
+      position: absolute;
+      font-size: 14px;
+      top: -2px;
+      left: 2px;
+      color: #1c1c1c;
+      transform: scale(0);
+      transition: transform 0.2s ease;
+
+    }
+
+    input[type="checkbox"]:checked::after {
+
+      transform: scale(1);
+
+    }
+
+    /* Label animation when checkbox toggled */
+    .task-list label {
+
+      display: inline-block;
+      transition: transform 0.3s ease, color 0.3s ease;
+
+    }
+
+    input[type="checkbox"]:checked + label {
+
+      color: #7fff00;
+      transform: scale(1.03);
+      animation: pulse 0.4s ease-in-out;
+
+    }
+
+    /* Pulsing animation on check */
+    @keyframes pulse {
+
+      0% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+      100% { transform: scale(1); }
+
+    }
+
+    /* Entry animation for each li */
+    .task-list li {
+
+      opacity: 0;
+      animation: fadeInTask 1s ease forwards;
+
+    }
+
+    @keyframes fadeInTask {
+
+      from {
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+    }
+
+    /* When checked from storage */
+    .task-list li.checked label {
+
+      color: #7fff00;
+      font-weight: bold;
+
+    }
+
+/* ========== MOBILE STYLING ========== */
+    @media (max-width: 768px) {
+
+      body {
+
+        font-size: 14px;
+        padding: 0 10px;
+
+      }
+
+      .container {
+
+        padding: 30px 15px;
+
+      }
+
+      h1 {
+
+        font-size: 1.8rem;
+        line-height: 1.3;
+
+      }
+
+      .details {
+
+        padding: 15px;
+        margin-top: 15px;
+
+      }
+
+      .details h2 {
+
+        font-size: 1.3rem;
+
+      }
+
+      .details p {
+
+        font-size: 14px;
+
+      }
+
+      .task-list li {
+
+        font-size: 16px;
+        padding: 10px 5px;
+
+      }
+
+      input[type="checkbox"] {
+
+        width: 16px;
+        height: 16px;
+
+      }
+
+      .hover-animate {
+
+        font-size: 1.5rem;
+
+      }
+
+    }
     
   </style>
 
@@ -212,7 +368,7 @@
   <div class="container">
 
     <a href="index.html" style="text-decoration: none;">
-      <h1 class="hover-animate" style="margin: 0;" title="back to HQ">Operation Bangkok: Move Immediately</h1>
+      <h1 class="hover-animate" style="margin: 0;" title="back to HQ.">Operation Bangkok: Move Immediately</h1>
       <style>
         .hover-animate {
           transition: transform 0.3s ease, color 0.3s ease;
@@ -241,16 +397,14 @@
             <br>
             <br>
 
-            semi-done. (awaiting on Hoss with the 2k transaction... should be around 1pm or something.)
-
-            <!-- tick emoji -->
+            complete. ✅
 
             <br>
             <br> --
             <br>
             <br>
             
-            * as for the hit from position A to position B - we have sufficed to suffice... to suffice again.
+            * as for the hit from position A to position B - we have sufficed to suffice... to suffice again. We are sufficing.
           
             <br>
             <br>
@@ -263,7 +417,7 @@
           <input type="checkbox" id="task4"> <label for="task2">acquire purefitness gym membership - R300 p/m.</label>
         </li> 
 
-<!-- done -->
+        <!-- done -->
 
         <li>
           <input type="checkbox" id="task5"> <label for="task3">join durban collegians. (this coming monday)</label>
@@ -285,16 +439,24 @@
     window.onload = function () {
 
       for (let i = 1; i <= 8; i++) {
-        let task = document.getElementById('task' + i);
+
+        let checkbox = document.getElementById('task' + i);
+        let listItem = checkbox.closest('li');
+
+        // Load from local storage
         if (localStorage.getItem('task' + i) === 'true') {
-          task.checked = true;
+          checkbox.checked = true;
+          listItem.classList.add('checked');
         }
 
-        // Add event listener to save the state when checkbox is clicked
-        task.addEventListener('change', function () {
-          localStorage.setItem('task' + i, task.checked);
+        // Listen for changes and animate
+        checkbox.addEventListener('change', function () {
+          localStorage.setItem('task' + i, checkbox.checked);
+          listItem.classList.toggle('checked', checkbox.checked);
         });
+
       }
+
     };
 
   </script>
@@ -303,7 +465,7 @@
 
 </html>
 
-<!-- animate literally each and everything here... animations all round - animations all over. ticked and unticked in different sections. save to local storage. -->
+
 
 
 
