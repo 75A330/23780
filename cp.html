@@ -4,17 +4,16 @@
 
 <head>
 
-  <meta charset="UTF-8"/>
+  <meta charset="UTF-8" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Charlie's Point Tour (1st tour)</title>
+  <title>Charlie's Point</title>
 
-  <link rel="icon" href="images/morpheus.jpg"/>
+  <link rel="icon" href="images/morpheus.jpg" />
 
   <style>
 
-    /* Global Style */
     body, html {
 
       height: 100%;
@@ -22,215 +21,96 @@
       font-family: 'Courier New', Courier, monospace;
       color: #d4d4d4;
       text-align: center;
-      overflow: visible;
+      background-color: black;
+      overflow-x: hidden;
 
     }
 
-    .video-background {
+    .video-background, .fallback-img {
 
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover; /* Ensures the video covers the entire screen */
-      z-index: -1; /* Places the video behind other content */
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      z-index: -1;
+
+    }
+
+    .fallback-img {
+
+      display: none;
 
     }
 
     .container {
+      
       max-width: 1200px;
       margin: auto;
-      padding: 50px;
+      padding: 50px 20px;
       position: relative;
       z-index: 1;
+
     }
 
-    h1,
-    h2,
-    h3 {
+    h1, h2, h3 {
 
       color: greenyellow;
 
-    }
+    }rgb(5, 5, 5)
 
-    h3,
-    h2 {
+    .operation-section {
 
-      margin-bottom: 20px;
-
-    }
-
-    /* SVG Style */
-    svg {
-
-      width: 100%;
-      height: auto;
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 30px;
+      margin-top: 40px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
 
     }
 
-    /* Region Interaction */
-    .region {
+    textarea, input[type="file"] {
 
-      fill: greenyellow;
-      transition: 0.4s ease;
-      cursor: pointer;
-
-    }
-
-    .region:hover {
-
-      fill: #ff0000;
+      width: 90%;
+      margin: 10px auto;
+      display: block;
+      background: #222;
+      color: #0f0;
+      padding: 12px;
+      border-radius: 5px;
+      border: 1px solid #555;
 
     }
 
-    .region:active {
-
-      fill: #00f7ff;
-
-    }
-
-    /* Buttons */
     button {
 
-      padding: 10px 20px;
-      background-color: greenyellow;
+      background: greenyellow;
       color: black;
       border: none;
-      border-radius: 5px;
+      padding: 12px 24px;
+      margin-top: 15px;
       cursor: pointer;
-      font-size: 16px;
-      margin-top: 20px;
-      transition: background-color 0.3s ease;
+      border-radius: 5px;
 
     }
 
     button:hover {
 
-      background-color: rgba(172, 255, 47, 0.473);
+      background-color: #b3ff3b;
 
     }
 
-    /* Operation Sections */
-    .operation-section {
+    .message {
 
-      background-color: rgba(0, 0, 0, 0.7);
-      padding: 20px;
-      margin-top: 20px;
-      border-radius: 10px;
-      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
-
-    }
-
-    .operation-section h2 {
-
-      color: #00f7ff;
-      font-size: 24px;
-
-    }
-
-    .operation-section .details p {
-
-      font-size: 16px;
-
-    }
-
-    /* Textarea for input */
-    textarea {
-
-      width: 80%;
-      height: 150px;
-      background-color: #333;
-      color: darkgreen;
-      border-radius: 5px;
-      padding: 10px;
-      font-size: 14px;
-      border: 1px solid #444;
-      resize: vertical;
-      margin-bottom: 20px;
-
-    }
-
-    /* Popup Style */
-    .popup {
-
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: rgba(0, 0, 0, 0.9);
-      color: white;
-      padding: 30px;
-      border-radius: 10px;
-      display: none;
-      width: 80%;
-      max-width: 500px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
-
-    }
-
-    .popup h3 {
-
-      font-size: 24px;
-      margin-bottom: 20px;
-
-    }
-
-    .popup p {
-
-      font-size: 18px;
-      line-height: 1.5;
-
-    }
-
-    .popup button {
-
-      background-color: #ff0000;
-      padding: 10px 20px;
-      border-radius: 5px;
-      border: none;
-      color: white;
-      cursor: pointer;
-      margin-top: 20px;
-
-    }
-
-    .popup button:hover {
-
-      background-color: #ff5555;
-
-    }
-
-    /* Highlight Section */
-    .highlight {
-
-      background-color: rgba(255, 0, 0, 0.2);
-      padding: 10px;
-      border-radius: 5px;
       margin-top: 10px;
-      cursor: pointer;
-
-    }
-    
-    .highlight:hover {
-
-      background-color: rgba(255, 0, 0, 0.5);
+      color: #0f0;
+      font-weight: bold;
 
     }
 
-    /* Responsive Design */
     @media (max-width: 768px) {
 
-      .container {
-
-        padding: 30px;
-
-      }
-
-      textarea {
-
-        width: 90%;
-
+      textarea, input[type="file"] {
+        width: 95%;
       }
 
     }
@@ -240,339 +120,150 @@
 </head>
 
 <body>
-
-  <video autoplay loop class="video-background">
-    <source src="video/cp.mp4" type="video/mp4" />
-    Your browser does not support the video tag.
+  <!-- Video background with fallback -->
+  <video class="video-background" autoplay loop muted playsinline onerror="showFallback()">
+    <source src="video/cp.mp4" type="video/mp4">
+    <!-- fallback will be shown using JS -->
   </video>
+  <img src="images/fallback.jpg" class="fallback-img" alt="Background Image" id="fallbackImage">
 
   <div class="container">
-    <a href="index.html" style="text-decoration: none;" title="back to HQ">
-      <h1>Charlie's Point Tour (1st tour)</h1>
-    </a>
+    <h1><a href="index.html" style="text-decoration: none; color: greenyellow;" title="back to HQ.">Charlie's Point Tour (1st tour)</a></h1>
 
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
+    <!-- Dynamically render operations -->
+    <div id="operationsContainer"></div>
 
-    <h3>Operation tuks</h3>
-    <div class="operation-section">
-      <h2>Objective: Destroy them, and let it be known that it's I whom's destroyed them.</h2>
-      <p>send fire! send fire! relentless fire.</p>
-      <p>expose them.</p>
-      <p>go externally and then come back internally to ensue.</p>
-      <p>Lawk. (add link.) Lawk will expose them relentlessly, unendingly, limitlessly, and with Holy Fire! Lawk will be the one to declare mission successful.</p>
-      <p>yesterday, I got a call from the uckg helpline, and it looks like internally it's set. we're still not gonna go back there though.</p>
-      <p>We are to never set our feet there ever again.</p>
-      <p>takedowns: pastor ayanda; bishop alex - I sent fire.</p>
-
-        --
-
-      </p>
-      <p>recruit Amina... she's @ joburg - but since we are to never set foot at tuks ever again, we're gonna recruit her online.</p>
-      <a href="https://tinyurl.com/parablesandplatters" target="_blank" style="text-decoration: none">Parables & Platters automation algorithm.</a>
-      <br>
-      <h4 style="text-align: center; color: greenyellow;">got any quick deployment intel to submit?</h4>
-      
-      <form action="https://formspree.io/f/mrbqpozy" method="POST" enctype="multipart/form-data">
-
-        <input type="file" name="media" accept="image/*,audio/*,video/*,.pdf,.doc,.docx" multiple />
-        <input type="hidden" name="_subject" value="New Intel Submission" />
-        <input type="hidden" name="operation" value="tuks" />
-        <textarea name="message" placeholder="intel..."></textarea>
-        <button type="submit">Submit Intel</button>
-        
-      </form>
-
-    </div>
-
-    <!-- add media options here as well to submit images, audio, video, and documents -->
-
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-
-    <h3>Operation Umhlanga: Business Licenses</h3>
-    <div class="operation-section">
-      <h2>Objective: Ascertain permits.</h2>
-      <p>we have to go to civic center for this one @ pinetown, but also the ethekwini municipality directly @ umhlanga, and also CBD. Ascertain pronto soldier. Holy Fire!</p>
-      <br>
-      <p>--</p>
-      <p>awaiting collection of ID from position B, but we'll go today with copies.</p>
-      <h4 style="text-align: center; color: greenyellow;">got any quick deployment intel to submit?</h4>
-
-      <form action="https://formspree.io/f/mrbqpozy" method="POST" enctype="multipart/form-data">
-
-        <input type="file" name="media" accept="image/*,audio/*,video/*,.pdf,.doc,.docx" multiple />
-        <input type="hidden" name="_subject" value="New Intel Submission" />
-        <input type="hidden" name="operation" value="tuks" />
-        <textarea name="message" placeholder="intel..."></textarea>
-        <button type="submit">Submit Intel</button>
-        
-      </form>
-
-    </div>
-
-    <!-- add media options here as well to submit images, audio, video, and documents -->
-
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-
-    <h3>Operation masiya</h3>
-    <div class="operation-section">
-      <h2>Objective: send him to farming.</h2>
-      <p>mole in our camp.</p>
-      <p>I'll prove to Hoss what that thing actually is. I'll give him units to sell, alone. with the big guy.</p>
-      <p>we need the small guy storage container also for I.</p>
-      <p>Objective send him to farming must initiate pronto! Green Pastures impending.</p>
-      <br>
-      <h4 style="text-align: center; color: greenyellow;">got any quick deployment intel to submit?</h4>
-
-      <form action="https://formspree.io/f/mrbqpozy" method="POST" enctype="multipart/form-data">
-
-        <input type="file" name="media" accept="image/*,audio/*,video/*,.pdf,.doc,.docx" multiple />
-        <input type="hidden" name="_subject" value="New Intel Submission" />
-        <input type="hidden" name="operation" value="tuks" />
-        <textarea name="message" placeholder="intel..."></textarea>
-        <button type="submit">Submit Intel</button>
-        
-      </form>
-
-    </div>
-
-    <!-- add media options here as well to submit images, audio, video, and documents -->
-
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-
-    <h3>Operation Senzangakhona</h3>
-    <div class="operation-section">
-      <h2>Objective: Explode them.</h2>
-      <p>New World Order!</p>
-      <br>
-      <p>Let's go afresh... vigor is still... let's go afresh.</p>
-      <br>
-      <p>Promote Taxi Maths.</p>
-      <br>
-      <h4 style="text-align: center; color: greenyellow;">got any quick deployment intel to submit?</h4>
-
-      <form action="https://formspree.io/f/mrbqpozy" method="POST" enctype="multipart/form-data">
-
-        <input type="file" name="media" accept="image/*,audio/*,video/*,.pdf,.doc,.docx" multiple />
-        <input type="hidden" name="_subject" value="New Intel Submission" />
-        <input type="hidden" name="operation" value="tuks" />
-        <textarea name="message" placeholder="intel..."></textarea>
-        <button type="submit">Submit Intel</button>
-        
-      </form>
-
-    </div>
-
-    <!-- add media options here as well to submit images, audio, video, and documents -->
-
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-
-    <h3>Operation Zama Mdluli</h3>
-    <div class="operation-section">
-      <h2>Objective: Get her - only if she has power.</h2>
-      <p>we've sent her the SMS, and I made sure that she received it.</p>
-      <br>
-      <p>with Zama, I only want power, and nothing ordinary. She has not yet reciprocated My Move though. I will scale her online on today.</p>
-      <br>
-      <h4 style="text-align: center; color: greenyellow;">got any quick deployment intel to submit?</h4>
-
-      <form action="https://formspree.io/f/mrbqpozy" method="POST" enctype="multipart/form-data">
-
-        <input type="file" name="media" accept="image/*,audio/*,video/*,.pdf,.doc,.docx" multiple />
-        <input type="hidden" name="_subject" value="New Intel Submission" />
-        <input type="hidden" name="operation" value="tuks" />
-        <textarea name="message" placeholder="intel..."></textarea>
-        <button type="submit">Submit Intel</button>
-        
-      </form>
-
-    </div>
-
-    <!-- add media options here as well to submit images, audio, video, and documents -->
-
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-
-    <h3>Operation Congo/Vietnam</h3>
-    <div class="operation-section">
-      <h2>Objective: Destroy the entire land of Vietnam, and then harness it, and destroy Congo entirely. Position A & B.</h2>
-      <p>kill all of these things.</p>
-      <br>
-      <p>re-acquire Conflict Vietnam.</p>
-      <br>
-      <!-- link to blood diamond stream -->
-      <p>combatting crime</p>
-      <br>
-      <!-- mophela river: Zothando's diamond - I must cross the river to find it. upload blood diamond to stream and find out more intel. -->
-      <h4 style="text-align: center; color: greenyellow;">got any quick deployment intel to submit?</h4>
-
-      <form action="https://formspree.io/f/mrbqpozy" method="POST" enctype="multipart/form-data">
-
-        <input type="file" name="media" accept="image/*,audio/*,video/*,.pdf,.doc,.docx" multiple />
-        <input type="hidden" name="_subject" value="New Intel Submission" />
-        <input type="hidden" name="operation" value="tuks" />
-        <textarea name="message" placeholder="intel..."></textarea>
-        <button type="submit">Submit Intel</button>
-        
-      </form>
-
-    </div>
-
-    <!-- add media options here as well to submit images, audio, video, and documents -->
-
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-
-    <h3>Operation Shaolin Temple</h3>
-    <div class="operation-section">
-      <h2>Objective: Burn everything to ashes!</h2>
-      <p>The Shaolin Temple must not live - it must die, as do all things die. for to live forever is to be God, and no one and nothing is like God, and the Shaolin Temple is definitely not God - it is infact a cult.</p>
-      <br>
-      <p>link Shaolin Temple stream.</p>
-      <br>
-      <h4 style="text-align: center; color: greenyellow;">got any quick deployment intel to submit?</h4>
-
-      <form action="https://formspree.io/f/mrbqpozy" method="POST" enctype="multipart/form-data">
-
-        <input type="file" name="media" accept="image/*,audio/*,video/*,.pdf,.doc,.docx" multiple />
-        <input type="hidden" name="_subject" value="New Intel Submission" />
-        <input type="hidden" name="operation" value="tuks" />
-        <textarea name="message" placeholder="intel..."></textarea>
-        <button type="submit">Submit Intel</button>
-        
-      </form>
-
-    </div>
-
-    <!-- add media options here as well to submit images, audio, video, and documents -->
-
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-
-    <h3>Operation S'the</h3>
-    <div class="operation-section">
-      <h2>Objective: Get Rich, and then ask for her hand in marriage.</h2>
-      <p>Go back to Vietnam driving a car, and then ask her out.</p>
-      <br>
-      <h4 style="text-align: center; color: greenyellow;">got any quick deployment intel to submit?</h4>
-
-      <form action="https://formspree.io/f/mrbqpozy" method="POST" enctype="multipart/form-data">
-
-        <input type="file" name="media" accept="image/*,audio/*,video/*,.pdf,.doc,.docx" multiple />
-        <input type="hidden" name="_subject" value="New Intel Submission" />
-        <input type="hidden" name="operation" value="tuks" />
-        <textarea name="message" placeholder="intel..."></textarea>
-        <button type="submit">Submit Intel</button>
-        
-      </form>
-
-    </div>
-
-    <!-- add media options here as well to submit images, audio, video, and documents -->
-
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-
-    <h3>Operation thing</h3>
-    <div class="operation-section">
-      <h2>Objective: Destroy thing with the 7 peace x.</h2>
-      <p>She made it her duty to enter into HQ... 7 peace x.</p>
-      <br>
-      <li>deploy Combatting Crime into the Congo vigor. (impending today)</li>
-      <br>
-      <li>casualties: her sister - esathi uyangiphaphela. I Am Olama Khayyim mina... angibhedelwa. Dead her sister is... killed by Olama Khayyim.</li>
-      <br>
-      <li>set automations all over for everything for this one... nobody enters into HQ - Nobody!</li>
-      <br>
-      <li>sing!</li>
-      <br>
-      <h4 style="text-align: center; color: greenyellow;">got any quick deployment intel to submit?</h4>
-
-      <form action="https://formspree.io/f/mrbqpozy" method="POST" enctype="multipart/form-data">
-
-        <input type="file" name="media" accept="image/*,audio/*,video/*,.pdf,.doc,.docx" multiple />
-        <input type="hidden" name="_subject" value="New Intel Submission" />
-        <input type="hidden" name="operation" value="tuks" />
-        <textarea name="message" placeholder="intel..."></textarea>
-        <button type="submit">Submit Intel</button>
-        
-      </form>
-
-    </div>
-
-    <!-- add media options here as well to submit images, audio, video, and documents -->
-
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
+    <p style="margin-top: 60px;">Tour duration: 60 days</p>
+  </div>
 
   <script>
 
-    // Function to handle intel submission
-    function submitIntel(operation) {
-      alert('Intel for ' + operation + ' has been submitted!');
+    const operations = [
+
+      {
+        title: "Operation masiya",
+        objective: "Send him to farming.",
+        details: [
+          "Mole in our camp.",
+          "I'll prove to Hoss what that thing actually is. I'll give him units to sell, alone. with the big guy.",
+          "Launch Green Pastures for P&P."
+        ],
+        duration: "42 days"
+      },
+      {
+        title: "Operation Senzangakhona",
+        objective: "Explode them.",
+        details: ["New World Order!", "Promote Taxi Maths."],
+        duration: "52 days"
+      },
+      {
+        title: "Operation Zama Mdluli",
+        objective: "Get her - only if she has power.",
+        details: [
+          "She has no power... but at the same time, she does have power.",
+          "She's a cumberseth female - I would like to meet her.",
+          "Be famous for her and call her out."
+        ],
+        duration: "60 days"
+      },
+      {
+        title: "Operation Congo/Vietnam",
+        objective: "Destroy the entire land of Vietnam and Congo.",
+        details: [
+          "Kill all of these things.",
+          "Play Conflict Vietnam cumbersethly.",
+          '<a href="https://tinyurl.com/combattingcrime" target="_blank">combatting crime</a>'
+        ],
+        duration: "42 days"
+      },
+      {
+        title: "Operation Shaolin Temple",
+        objective: "Burn everything to ashes!",
+        details: [
+          "The Shaolin Temple must not live - it must die.",
+          "It is a cult.",
+          "Link Shaolin Temple stream."
+        ],
+        duration: "42 days"
+      },
+      {
+        title: "Operation S'the",
+        objective: "Get Rich, and then ask for her hand in marriage.",
+        details: [
+          "Go back to Vietnam driving a car, and then ask her out."
+        ],
+        duration: "42 days"
+      },
+      {
+        title: "Operation thing",
+        objective: "Destroy thing with the 7 peace x.",
+        details: [
+          "Deploy Combatting Crime into the Congo vigor.",
+          "Casualties: her sister. I Am Olama Khayyim.",
+          "Set automations for everything.",
+          "Sing!"
+        ],
+        duration: "42 days"
+      }
+
+    ];
+
+    const operationsContainer = document.getElementById('operationsContainer');
+
+    operations.forEach((op, index) => {
+      const opHtml = `
+        <div class="operation-section">
+          <h3>${op.title}</h3>
+          <h2>Objective: ${op.objective}</h2>
+          ${op.details.map(line => `<p>${line}</p>`).join('')}
+          <h4 style="color: greenyellow;">Got any quick deployment intel to submit?</h4>
+          <form onsubmit="handleFormSubmit(event, ${index})" enctype="multipart/form-data">
+            <input type="file" name="media" accept="image/*,audio/*,video/*,.pdf,.doc,.docx" multiple />
+            <textarea name="message" placeholder="intel..." required></textarea>
+            <button type="submit">Submit Intel</button>
+            <div class="message" id="msg-${index}"></div>
+          </form>
+          <p>Operation duration: ${op.duration}</p>
+        </div>
+      `;
+      operationsContainer.innerHTML += opHtml;
+    });
+
+    function handleFormSubmit(event, index) {
+      event.preventDefault();
+      const form = event.target;
+      const formData = new FormData(form);
+      formData.append("operation", "tuks");
+      formData.append("_subject", "New Intel Submission");
+
+      fetch("https://formspree.io/f/mrbqpozy", {
+        method: "POST",
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+        .then(response => {
+          const msg = document.getElementById(`msg-${index}`);
+          if (response.ok) {
+            msg.textContent = "Intel submitted successfully!";
+            msg.style.color = "lime";
+            form.reset();
+          } else {
+            msg.textContent = "Submission failed. Try again.";
+            msg.style.color = "red";
+          }
+        })
+        .catch(() => {
+          document.getElementById(`msg-${index}`).textContent = "Network error.";
+        });
     }
 
-    // Function to handle popup visibility
-    function showPopup(popupId) {
-      document.getElementById(popupId).style.display = 'block';
-    }
-
-    function closePopup(popupId) {
-      document.getElementById(popupId).style.display = 'none';
+    function showFallback() {
+      const fallback = document.getElementById("fallbackImage");
+      if (fallback) {
+        fallback.style.display = 'block';
+      }
     }
 
   </script>

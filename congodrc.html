@@ -1,14 +1,20 @@
-some real ish is going on over there in the DRC Congo - create me a page called congodrc.html . a military operation page for a soldier called Olama Khayyim. He's going to go down deep undercover to obliterate each and everything that is wrong in the DRC... child soldiers, blood diamonds, rebels, terrorists, etc... add plenty more. use formspree in the html for intel submission. all devices styling. error handling. long code. designed of expertise. security features... dynamic tasklists... local storage. undercover strategies, deployments, intel, breaches, positions, you name it... go deep deep for this page. make it very very very very long. weapons, ammunitions, escape routes. feel free to add advanced features of your own. 
+<!DOCTYPE html>
 
---
+<html lang="en">
 
-use this styling 
+<head>
 
--- 
+  <meta charset="UTF-8" />
 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
-<style>
+  <title>Black Dagger</title>
+
+  <link rel="icon" href="images/morpheus.jpg" />
+
+  <style>
 
     body {
 
@@ -87,23 +93,187 @@ use this styling
 
     }
 
+    input, textarea, button {
+
+      background: #111;
+      color: #2bff00;
+      border: 1px solid #2bff00;
+      padding: 10px;
+      width: 100%;
+      margin-top: 10px;
+      font-family: 'Courier New', monospace;
+
+    }
+
+    button:hover {
+
+      background-color: #2bff00;
+      color: #000;
+      cursor: pointer;
+
+    }
+
+    .task-complete {
+
+      text-decoration: line-through;
+      color: #ff0000;
+
+    }
+
+    #formStatus {
+
+      margin-top: 10px;
+      font-weight: bold;
+
+    }
+
+
   </style>
 
+</head>
+
+<body>
+
+  <div class="container">
+    <h1><a href="index.html" style="text-decoration: none; color: #d2e000;" title="back to HQ.">Operation Black Dagger</a></h1>
+    <div class="details">
+      <h2>MISSION OBJECTIVE</h2>
+      <div class="terminal-block">
+        <p>Go deep undercover in the DRC to eliminate high-priority targets:
+          <br>
+        - Child Soldier Recruitment Networks
+        - Blood Diamond Smuggling Rings
+        - Rebel Strongholds & War Criminals
+        - Terrorist Camps & Extremist Cells
+        - Corrupt Regimes & Arms Dealers
+        - Poachers fueling black market trade
+        - Hostile Surveillance Systems
+        - Rogue Biochemical Labs
+        - Propaganda Networks
+        - Data Exploitation Operators</p>
+      </div>
+
+      <h2>INTEL SUBMISSION FORM</h2>
+      <form action="https://formspree.io/f/xgvkdgaj" method="POST" id="intelForm">
+        <input type="text" name="agent_code" placeholder="Agent Code" required>
+        <input type="text" name="location" placeholder="Current Coordinates (GPS)" required>
+        <textarea name="intel" placeholder="Describe findings / suspicious activity..." required></textarea>
+        <button type="submit">Submit Intel</button>
+        <div id="formStatus"></div>
+      </form>
+
+      <h2>ACTIVE DEPLOYMENTS</h2>
+      <div class="terminal-block" id="deployments">
+        - Sector Alpha: Jungle Infiltration<br>
+        - Sector Bravo: Undercover in Goma<br>
+        - Sector Charlie: Recon at River Conga Camps<br>
+      </div>
+
+      <h2>DYNAMIC TASK LIST</h2>
+      <div class="terminal-block">
+        <ul id="taskList"></ul>
+        <input type="text" id="newTask" placeholder="Add a mission directive...">
+        <button onclick="addTask()">Add Task</button>
+      </div>
+
+      <h2>AMMUNITION CACHE</h2>
+      <div class="terminal-block">
+        - XM2010 Sniper Rifle<br>
+        - HK416 Assault Rifle<br>
+        - M84 Stun Grenades<br>
+        - Tactical Drone Swarms<br>
+        - Combat Knife, Ghillie Suits<br>
+        - Satellite Communication Systems
+      </div>
+
+      <h2>ESCAPE & EXTRACTION ROUTES</h2>
+      <div class="terminal-block">
+        - Tunnel Grid Alpha (via Kivu Border)<br>
+        - River Raft Evac via Ituri<br>
+        - Chopper Pickup Zones Delta & Echo<br>
+        - Rogue Jeep Convoy from Kisangani (on call 24/7)
+      </div>
+
+      <h2>LOCAL STORAGE STRATEGY</h2>
+      <div class="terminal-block">
+        Store mission progress and logs directly in device. Secured via local encryption and accessed offline when signals are jammed.
+        <button onclick="clearTasks()">Clear Stored Tasks</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const taskList = document.getElementById("taskList");
+    const newTaskInput = document.getElementById("newTask");
+
+    function loadTasks() {
+      const tasks = JSON.parse(localStorage.getItem("drctasks")) || [];
+      taskList.innerHTML = "";
+      tasks.forEach((task, index) => {
+        const li = document.createElement("li");
+        li.textContent = task.text;
+        if (task.complete) li.classList.add("task-complete");
+        li.onclick = () => {
+          tasks[index].complete = !tasks[index].complete;
+          localStorage.setItem("drctasks", JSON.stringify(tasks));
+          loadTasks();
+        };
+        taskList.appendChild(li);
+      });
+    }
+
+    function addTask() {
+      const tasks = JSON.parse(localStorage.getItem("drctasks")) || [];
+      const taskText = newTaskInput.value.trim();
+      if (taskText) {
+        tasks.push({ text: taskText, complete: false });
+        localStorage.setItem("drctasks", JSON.stringify(tasks));
+        newTaskInput.value = "";
+        loadTasks();
+      }
+    }
+
+    function clearTasks() {
+      if (confirm("Wipe all stored tasks?")) {
+        localStorage.removeItem("drctasks");
+        loadTasks();
+      }
+    }
+
+    document.getElementById("intelForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      const form = event.target;
+      const statusDiv = document.getElementById("formStatus");
+
+      // Show loading message
+      statusDiv.innerText = "Submitting intel... Please stand by.";
+      statusDiv.style.color = "#00f7ff";
+
+      fetch(form.action, {
+        method: form.method,
+        body: new FormData(form),
+        headers: {
+          'Accept': 'application/json'
+        }
+      }).then(response => {
+        if (response.ok) {
+          statusDiv.innerText = "✅ Intel submitted successfully.";
+          statusDiv.style.color = "#2bff00";
+          form.reset();
+        } else {
+          return response.json().then(data => {
+            throw new Error(data.message || "Failed to submit intel. Try again.");
+          });
+        }
+      }).catch(error => {
+        statusDiv.innerText = "❌ " + error.message;
+        statusDiv.style.color = "#ff0000";
+      });
+    });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    window.onload = loadTasks;
+  </script>
+</body>
+</html>
 

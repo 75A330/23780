@@ -414,20 +414,18 @@
         </li>
 
         <li>
-          <input type="checkbox" id="task4"> <label for="task2">acquire purefitness gym membership - R300 p/m.</label>
+          <input type="checkbox" id="task4"> <label for="task4">acquire purefitness gym membership - R300 p/m.</label>
         </li> 
-
-        <!-- done -->
-
-        <li>
-          <input type="checkbox" id="task5"> <label for="task3">join durban collegians. (this coming monday)</label>
-        </li>
 
         <li>
           <input type="checkbox" id="task8"> <label for="task8">mission successful.</label>
         </li>
 
       </ul>
+
+      <p>mission duration: 42 days.</p>
+      <p>cumberseth mission.</p>
+      <p>I'm glad to be of service Father.</p>
 
     </div>
 
@@ -436,26 +434,28 @@
   <script>
 
     // Function to load the saved checkbox state from local storage
+
     window.onload = function () {
 
-      for (let i = 1; i <= 8; i++) {
+      const checkboxes = document.querySelectorAll('.task-list input[type="checkbox"]');
 
-        let checkbox = document.getElementById('task' + i);
-        let listItem = checkbox.closest('li');
+      checkboxes.forEach(checkbox => {
+        const id = checkbox.id;
+        const listItem = checkbox.closest('li');
 
-        // Load from local storage
-        if (localStorage.getItem('task' + i) === 'true') {
+        // Load from storage
+        if (localStorage.getItem(id) === 'true') {
           checkbox.checked = true;
           listItem.classList.add('checked');
         }
 
-        // Listen for changes and animate
-        checkbox.addEventListener('change', function () {
-          localStorage.setItem('task' + i, checkbox.checked);
+        // Save to storage on change
+        checkbox.addEventListener('change', () => {
+          localStorage.setItem(id, checkbox.checked);
           listItem.classList.toggle('checked', checkbox.checked);
         });
 
-      }
+      });
 
     };
 
