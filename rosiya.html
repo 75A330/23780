@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>Rosiya</title>
+
+  <style>
+
+    body {
+
+      background-color: #0d1117;
+      color: #c9d1d9;
+      font-family: 'Courier New', Courier, monospace;
+      margin: 0;
+      padding: 0;
+
+    }
+
+    header {
+
+      background-color: #161b22;
+      padding: 20px;
+      text-align: center;
+      border-bottom: 2px solid #30363d;
+
+    }
+
+    header h1 {
+
+      margin: 0;
+      font-size: 2em;
+      color: #58a6ff;
+      letter-spacing: 2px;
+
+    }
+
+    .container {
+
+      padding: 20px;
+      max-width: 1000px;
+      margin: auto;
+
+    }
+
+    input[type="text"], select {
+
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      font-size: 1em;
+      border: 2px solid #30363d;
+      background-color: #161b22;
+      color: #c9d1d9;
+
+    }
+
+    table {
+
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+
+    }
+
+    th, td {
+
+      padding: 10px;
+      border: 1px solid #30363d;
+      text-align: center;
+
+    }
+
+    th {
+
+      background-color: #21262d;
+      color: #58a6ff;
+
+    }
+
+    td {
+
+      background-color: #161b22;
+
+    }
+
+    .note-area {
+
+      margin-top: 30px;
+
+    }
+
+    textarea {
+
+      width: 100%;
+      height: 150px;
+      padding: 10px;
+      font-family: monospace;
+      background-color: #0d1117;
+      color: #58a6ff;
+      border: 2px solid #30363d;
+      font-size: 1em;
+
+    }
+    button {
+
+      background-color: #21262d;
+      color: #58a6ff;
+      border: 1px solid #30363d;
+      padding: 10px 20px;
+      cursor: pointer;
+      margin: 5px 2px;
+
+    }
+
+    button:hover {
+
+      background-color: #30363d;
+
+    }
+
+    footer {
+
+      text-align: center;
+      padding: 10px;
+      color: #6e7681;
+      font-size: 0.8em;
+      margin-top: 40px;
+
+    }
+
+    .note-controls {
+
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+
+    }
+
+    .note-list {
+
+      max-height: 200px;
+      overflow-y: auto;
+      margin-top: 10px;
+      border: 1px solid #30363d;
+      padding: 10px;
+
+    }
+
+    .note-list-item {
+
+      cursor: pointer;
+      padding: 5px;
+      border-bottom: 1px solid #30363d;
+
+    }
+
+    .note-list-item:hover {
+
+      background-color: #21262d;
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <header>
+    <h1>Rosiya</h1>
+    <p>Master Russian Script — Soldier Style</p>
+  </header>
+
+  <div class="container">
+    <input type="text" id="search" placeholder="Search letters or notes..." onkeyup="filterContent()" />
+
+    <table id="cyrillicTable">
+      <thead>
+        <tr>
+          <th>Cyrillic</th>
+          <th>Sound</th>
+          <th>Example</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+
+    <div class="note-area">
+      <h3>🧾 Multiple Notes System</h3>
+
+      <div class="note-controls">
+        <input type="text" id="noteTitle" placeholder="Note Title (e.g., 'Hard Sounds')" />
+        <button onclick="saveNote()">💾 Save</button>
+        <button onclick="loadNote()">📖 Load</button>
+        <button onclick="updateNote()">🔁 Update</button>
+        <button onclick="deleteNote()">❌ Delete</button>
+        <button onclick="listNotes()">📚 Show Notes</button>
+      </div>
+
+      <textarea id="notes" placeholder="Your notes here..."></textarea>
+
+      <div id="noteList" class="note-list"></div>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 Rosiya
+  </footer>
+
+  <!-- Firebase -->
+  <script type="module">
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.0/firebase-app.js";
+    import {
+      getFirestore, collection, doc, setDoc, getDoc, getDocs,
+      updateDoc, deleteDoc
+    } from "https://www.gstatic.com/firebasejs/11.8.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyD6G5bBa_sqi5ticdG1jiuelsJKGVkFWRI",
+      authDomain: "cyrillic-56f6e.firebaseapp.com",
+      projectId: "cyrillic-56f6e",
+      storageBucket: "cyrillic-56f6e.appspot.com",
+      messagingSenderId: "309758863685",
+      appId: "1:309758863685:web:598b99082a27dde52ab62c",
+      measurementId: "G-QG9EZ3HYCF"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const notesCollection = collection(db, "notes");
+
+    window.saveNote = async function () {
+      const title = document.getElementById("noteTitle").value.trim();
+      const content = document.getElementById("notes").value;
+      if (!title) return alert("Please provide a title.");
+      try {
+        await setDoc(doc(notesCollection, title), {
+          content,
+          updated: new Date().toISOString()
+        });
+        alert("✅ Note saved.");
+      } catch (err) {
+        console.error(err);
+        alert("Error saving note.");
+      }
+    };
+
+    window.loadNote = async function () {
+      const title = document.getElementById("noteTitle").value.trim();
+      if (!title) return alert("Please provide a title.");
+      try {
+        const docSnap = await getDoc(doc(notesCollection, title));
+        if (docSnap.exists()) {
+          document.getElementById("notes").value = docSnap.data().content;
+          alert("📖 Note loaded.");
+        } else {
+          alert("⚠️ Note not found.");
+        }
+      } catch (err) {
+        console.error(err);
+        alert("Error loading note.");
+      }
+    };
+
+    window.updateNote = async function () {
+      const title = document.getElementById("noteTitle").value.trim();
+      const content = document.getElementById("notes").value;
+      if (!title) return alert("Please provide a title.");
+      try {
+        await updateDoc(doc(notesCollection, title), {
+          content,
+          updated: new Date().toISOString()
+        });
+        alert("🔁 Note updated.");
+      } catch (err) {
+        console.error(err);
+        alert("Error updating note.");
+      }
+    };
+
+    window.deleteNote = async function () {
+      const title = document.getElementById("noteTitle").value.trim();
+      if (!title) return alert("Please provide a title.");
+      try {
+        await deleteDoc(doc(notesCollection, title));
+        document.getElementById("notes").value = "";
+        alert("🗑️ Note deleted.");
+      } catch (err) {
+        console.error(err);
+        alert("Error deleting note.");
+      }
+    };
+
+    window.listNotes = async function () {
+      const noteListDiv = document.getElementById("noteList");
+      noteListDiv.innerHTML = "📋 Notes:<br/>";
+      try {
+        const querySnapshot = await getDocs(notesCollection);
+        querySnapshot.forEach(docSnap => {
+          const noteItem = document.createElement("div");
+          noteItem.className = "note-list-item";
+          noteItem.innerHTML = `<strong>${docSnap.id}</strong> — updated: ${new Date(docSnap.data().updated).toLocaleString()}`;
+          noteItem.onclick = () => {
+            document.getElementById("noteTitle").value = docSnap.id;
+            document.getElementById("notes").value = docSnap.data().content;
+          };
+          noteListDiv.appendChild(noteItem);
+        });
+      } catch (err) {
+        console.error(err);
+        alert("Error listing notes.");
+      }
+    };
+    
+  </script>
+
+  <script>
+    // Cyrillic Data Loader
+    window.onload = function () {
+      const alphabet = [
+        ["А а", "a", "arm"], ["Б б", "b", "boy"], ["В в", "v", "van"], ["Г г", "g", "go"],
+        ["Д д", "d", "dog"], ["Е е", "ye / e", "yes / met"], ["Ё ё", "yo", "yo-yo"],
+        ["Ж ж", "zh", "pleasure"], ["З з", "z", "zebra"], ["И и", "ee", "see"],
+        ["Й й", "y", "boy"], ["К к", "k", "king"], ["Л л", "l", "lamp"], ["М м", "m", "man"],
+        ["Н н", "n", "nose"], ["О о", "o", "no"], ["П п", "p", "pet"], ["Р р", "r (rolled)", "perro (Spanish)"],
+        ["С с", "s", "sun"], ["Т т", "t", "toy"], ["У у", "oo", "boot"], ["Ф ф", "f", "fish"],
+        ["Х х", "kh", "loch"], ["Ц ц", "ts", "bits"], ["Ч ч", "ch", "check"], ["Ш ш", "sh", "ship"],
+        ["Щ щ", "shch", "fresh cheese"], ["Ъ ъ", "(hard sign)", "—"], ["Ы ы", "i (hard)", "deep 'hit'"],
+        ["Ь ь", "(soft sign)", "—"], ["Э э", "e", "met"], ["Ю ю", "yoo", "you"], ["Я я", "ya", "yacht"]
+      ];
+
+      const tableBody = document.getElementById("tableBody");
+      alphabet.forEach(row => {
+        const tr = document.createElement("tr");
+        row.forEach(cell => {
+          const td = document.createElement("td");
+          td.textContent = cell;
+          tr.appendChild(td);
+        });
+        tableBody.appendChild(tr);
+      });
+    };
+
+    function filterContent() {
+      const input = document.getElementById("search").value.toLowerCase();
+      const tableRows = document.querySelectorAll("#cyrillicTable tbody tr");
+      tableRows.forEach(row => {
+        const rowText = row.innerText.toLowerCase();
+        row.style.display = rowText.includes(input) ? "" : "none";
+      });
+
+      const noteItems = document.querySelectorAll(".note-list-item");
+      noteItems.forEach(item => {
+        const text = item.innerText.toLowerCase();
+        item.style.display = text.includes(input) ? "" : "none";
+      });
+    }
+  </script>
+
+</body>
+
+</html>
+
+
+
+
+
